@@ -103,7 +103,9 @@ class AmountDisplaySection extends StatelessWidget {
                             'NEW RECORD',
                             style: TextStyle(color: Colors.black),
                           ),
-                          onPressed: () => {},
+                          onPressed: () => {
+                            Navigator.pushNamed(context, '/create_cashout')
+                          },
                           style:
                               ElevatedButton.styleFrom(primary: Colors.white),
                         ),
