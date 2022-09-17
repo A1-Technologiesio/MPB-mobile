@@ -164,11 +164,19 @@ class DashboardMainBody extends StatelessWidget {
 
             var transactions = jsonDecoding['transactions'];
 
-            // Amount heading section
-            final cashoutData =
+            // Amount and charges Data
+            final cashoutAmount =
                 jsonDecoding['cashout_record_sum']['amount_sum'].toString();
-            final depositData =
+            final depositAmount =
                 jsonDecoding['deposit_record_sum']['amount_sum'].toString();
+
+            final cashoutCharges =
+                jsonDecoding['cashout_record_sum']['charge_sum'].toString();
+            final depositCharges =
+                jsonDecoding['deposit_record_sum']['charge_sum'].toString();
+
+            final totalChargesToday = jsonDecoding['todays_profit'].toString();
+            final disbursedToday = jsonDecoding['total_disbursed'].toString();
 
             // Main dashboard Page
             return SafeArea(
@@ -217,8 +225,12 @@ class DashboardMainBody extends StatelessWidget {
 
                       // Amount Section
                       AmountCarousel(
-                        cashoutAmount: cashoutData,
-                        depositAmount: depositData,
+                        cashoutAmount: cashoutAmount,
+                        depositAmount: depositAmount,
+                        cashoutCharges: cashoutCharges,
+                        depositCharges: depositCharges,
+                        totalDisbursedToday: disbursedToday,
+                        totalCharges: totalChargesToday,
                       ),
                       // Weekly Records and Profits buttons
                       Padding(
