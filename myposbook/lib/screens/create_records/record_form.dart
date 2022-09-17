@@ -1,4 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:myposbook/constants.dart';
+import 'package:http/http.dart' as http;
+
+/* 
+to be replaced with api data
+*/
+List<String> posTerminals = [
+  'Select Terminal',
+  'Opay',
+  'Accelerex',
+];
 
 class RecordForm extends StatefulWidget {
   const RecordForm({Key? key}) : super(key: key);
@@ -8,75 +19,174 @@ class RecordForm extends StatefulWidget {
 }
 
 class _RecordFormState extends State<RecordForm> {
- 
-  // to be replaced with api data 
-  List<String> posTerminals = [
-    'Select Terminal',
-    'Opay',
-    'Accelerex',
-  ];
   final _formKey = GlobalKey<FormState>();
-  print();
-  // String dropDownValue = posTerminals.first;
+  // print();
+  String dropDownValue = posTerminals.first;
 
-  TextField recordDataForm(String label, controller)=>  TextField(
-                controller: controller,
-                style: const TextStyle(
-                  color: Colors.white70
-                ),
-                decoration: InputDecoration(
-                  labelText: label,
-                  labelStyle: const TextStyle(
-                    color: Colors.white,
-                  ),
-                  enabledBorder: const UnderlineInputBorder(      
-                      borderSide: BorderSide(color: Colors.white),   
-                      ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white54)
-                  )
-                ),
-              );
-
+  TextField recordDataForm(String label, controller) => TextField(
+        keyboardType: TextInputType.number,
+        controller: controller,
+        style: const TextStyle(color: Colors.white70),
+        decoration: InputDecoration(
+            labelText: label,
+            labelStyle: const TextStyle(
+              color: Colors.white70,
+            ),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(
+              color: Colors.white54,
+            ))),
+      );
 
   @override
   Widget build(BuildContext context) {
-      final _amountController = TextEditingController();
-  final _chargesController = TextEditingController();
-return Form(
-            key: _formKey,
-            child: Column(
-            children: [
-              // amount and charge fields
-              recordDataForm('Amount', _amountController,),
-              recordDataForm('Charge', _chargesController,),
+    final _amountController = TextEditingController();
+    final _chargesController = TextEditingController();
 
-              // Pos Terminals List
-                DropdownButton<String>(
-                  items: posTerminals
-                            .map<DropdownMenuItem<String>>(
-                                (String _value) => DropdownMenuItem<String>(
-                                      value: _value,
-                                      child: Text(_value),
-                                    ))
-                            .toList(),
-                            onChanged: (String? value) {
-                          setState(() {
-                            // dropDownValue = value!;
-                          });
-                        },
-                            ),
-              
-              // save button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: (){},
-                  child: Text('Save',),)
-                  ),
-              
-            ],
-          ));
-        
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final spaceBetweenForm = SizedBox(
+      height: screenHeight * 0.02,
+    );
+
+    Future createRecord() async {
+      // form data
+      final amount = _amountController.text;
+      final charges = _chargesController.text;
+      final posTerminal = dropDownValue;
+
+      Map<String, String> formData = {
+        'amount': amount,
+        'charge': charges,
+        'terminal': posTerminal
+      };
+
+      // get token from secureStorage
+      final storage = await secureStorage();
+      final accessToken = storage['access_token'];
+
+      // API
+      var constructAPIRoute = Uri.http(
+        APIUrlRoot,
+        'api/cashout/create/',
+      );
+
+      Map<String, String> requestHeaders = {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      };
+
+      http.Response response = await http.post(
+        constructAPIRoute,
+        body: formData,
+        headers: requestHeaders,
+      );
+
+      if (response.statusCode == 201) {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, '/dashboard_main');
+      }
+
+      print(response);
+    }
+
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          // Pos Terminals List
+          SizedBox(
+            width: double.infinity,
+            child: DropdownButton<String>(
+              underline: Container(
+                height: 1,
+                color: Colors.white,
+              ),
+              value: dropDownValue,
+              icon: Padding(
+                padding: EdgeInsets.only(
+                  left: screenWidth * 0.55,
+                  bottom: screenHeight * 0.03,
+                ),
+                child: const Icon(
+                  Icons.arrow_circle_down_sharp,
+                  color: brandColor,
+                ),
+              ),
+              // underline: Border.(bottom: 2),
+
+              // pos terminals
+              items: posTerminals
+                  .map<DropdownMenuItem<String>>(
+                    (String _value) => DropdownMenuItem<String>(
+                      value: _value,
+                      child: Text(
+                        _value,
+                        style: TextStyle(),
+                      ),
+                    ),
+                  )
+                  .toList(),
+
+              // to change the color of the selected item
+              selectedItemBuilder: (BuildContext context) => posTerminals
+                  .map((value) => Text(dropDownValue,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                      )))
+                  .toList(),
+              onChanged: (String? value) {
+                setState(() {
+                  dropDownValue = value!;
+                });
+              },
+            ),
+          ),
+
+          // amount and charge fields
+          recordDataForm(
+            'Amount',
+            _amountController,
+          ),
+          spaceBetweenForm,
+
+          recordDataForm(
+            'Charge',
+            _chargesController,
+          ),
+
+          spaceBetweenForm,
+          spaceBetweenForm,
+
+          // save button
+          SizedBox(
+              width: double.infinity,
+              height: screenHeight * 0.06,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Color(0xffffffff),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18))),
+                onPressed: () {
+                  _formKey.currentState!.reset();
+                  createRecord();
+                },
+                child: Text(
+                  'Save',
+                  style: TextStyle(
+                      color: Color(0xff000000),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16),
+                ),
+              )),
+        ],
+      ),
+    );
   }
 }
