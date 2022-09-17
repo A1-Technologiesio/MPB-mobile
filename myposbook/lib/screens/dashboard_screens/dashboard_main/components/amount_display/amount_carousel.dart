@@ -6,10 +6,18 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class AmountCarousel extends StatelessWidget {
   dynamic cashoutAmount;
   dynamic depositAmount;
+  String cashoutCharges;
+  String depositCharges;
+  String totalCharges;
+  String totalDisbursedToday;
   AmountCarousel({
     Key? key,
     required this.cashoutAmount,
     required this.depositAmount,
+    required this.cashoutCharges,
+    required this.depositCharges,
+    required this.totalCharges,
+    required this.totalDisbursedToday,
   }) : super(key: key);
 
   final _controller = PageController();
@@ -26,21 +34,21 @@ class AmountCarousel extends StatelessWidget {
               AmountDisplaySection(
                 recordTitle: 'Cashout',
                 recordAmount: cashoutAmount,
-                recordTotalCharge: '221,982.22',
+                recordTotalCharge: cashoutCharges,
                 leftSideColor: Color(0xff27142A),
                 rightSideColor: Color(0xff225560),
               ),
               AmountDisplaySection(
                 recordTitle: 'Deposit',
                 recordAmount: depositAmount,
-                recordTotalCharge: '221,982.22',
+                recordTotalCharge: depositCharges,
                 leftSideColor: Color(0xff386fa4),
                 rightSideColor: Colors.black,
               ),
               AmountDisplaySection(
                 recordTitle: 'Total Disbursed',
-                recordAmount: '10,000,000.00',
-                recordTotalCharge: '221,982.22',
+                recordAmount: totalDisbursedToday,
+                recordTotalCharge: totalCharges,
                 leftSideColor: Color(0xffE3655B),
                 rightSideColor: Color(0xff2F3061),
               ),
