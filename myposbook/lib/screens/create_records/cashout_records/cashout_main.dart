@@ -9,23 +9,18 @@ class CreateCashoutMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-            brandColor,
-            Color(0xff225560),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-
-          stops: [
-            0.3,
-            1.0
-          ] 
+          decoration: const BoxDecoration(
+            color: brandColor,
+            // gradient: LinearGradient(
+            //     colors: [
+            //       brandColor,
+            //       Color(0xff225560),
+            //     ],
+            //     begin: Alignment.topCenter,
+            //     end: Alignment.bottomCenter,
+            //     stops: [0.3, 1.0]),
           ),
-        ),
-        child: CashoutCreateRecordBody()
-        ),
+          child: CashoutCreateRecordBody()),
     );
   }
 }
