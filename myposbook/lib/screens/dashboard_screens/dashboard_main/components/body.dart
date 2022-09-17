@@ -78,18 +78,24 @@ class DashboardMainBody extends StatelessWidget {
           ),
         );
 
-    transactionItem(transactionTitle, transactionDate, transactionAmount,
-            transactionCharge) =>
+    transactionItem(
+      transactionTitle,
+      transactionDate,
+      transactionAmount,
+      transactionCharge,
+    ) =>
         Padding(
           padding: EdgeInsets.symmetric(
             vertical: mediaHeight * 0.005,
           ),
           child: Container(
             decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-              color: Colors.black12,
-            ))),
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.black12,
+                ),
+              ),
+            ),
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: mediaHeight * 0.015,
@@ -122,7 +128,11 @@ class DashboardMainBody extends StatelessWidget {
                                 transactionTitle,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w800,
+                                  fontSize: 16,
                                 ),
+                              ),
+                              SizedBox(
+                                height: mediaHeight * 0.005,
                               ),
                               Text(transactionDate)
                             ],
@@ -132,7 +142,16 @@ class DashboardMainBody extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(transactionAmount),
+                          Text(
+                            transactionAmount,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 15,
+                            ),
+                          ),
+                          SizedBox(
+                            height: mediaHeight * 0.005,
+                          ),
                           Text(transactionCharge),
                         ],
                       )
@@ -223,7 +242,7 @@ class DashboardMainBody extends StatelessWidget {
                         ),
                       ),
 
-                      // Amount Section
+                      // Record display section
                       AmountCarousel(
                         cashoutAmount: cashoutAmount,
                         depositAmount: depositAmount,
@@ -232,6 +251,7 @@ class DashboardMainBody extends StatelessWidget {
                         totalDisbursedToday: disbursedToday,
                         totalCharges: totalChargesToday,
                       ),
+
                       // Weekly Records and Profits buttons
                       Padding(
                         padding:
