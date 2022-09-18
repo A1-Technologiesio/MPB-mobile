@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/amount_display/amount_carousel.dart';
 import 'package:http/http.dart' as http;
+import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/quicklink_button.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -72,7 +73,7 @@ class DashboardMainBody extends StatelessWidget {
           child: Text(
             statement,
             style: TextStyle(
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w300,
               fontSize: mediaHeight * 0.02,
             ),
           ),
@@ -252,56 +253,98 @@ class DashboardMainBody extends StatelessWidget {
                         totalCharges: totalChargesToday,
                       ),
 
-                      // Weekly Records and Profits buttons
+                      /* 
+                      quicklinks section
+                      */
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: mediaHeight * 0.035),
+                        padding: EdgeInsets.symmetric(
+                            vertical: mediaHeight * 0.02,
+                            horizontal: mediaWidth * 0.025),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              width: mediaWidth * 0.42,
-                              child: OutlinedButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'Weekly Records',
-                                  style: TextStyle(
-                                      color: brandColor,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: brandColor, width: 2),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: mediaWidth * 0.42,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                child: Text('Weekly Profits'),
-                                style: ElevatedButton.styleFrom(
-                                    primary: brandColor),
+                            Text(
+                              'Quick Links',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: mediaHeight * 0.02,
                               ),
                             ),
                           ],
                         ),
                       ),
 
-                      // Transactions table
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Column(
                         children: [
-                          Text(
-                            'Transactions',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontSize: mediaHeight * 0.026,
-                                fontWeight: FontWeight.w900),
-                          ),
+                          // quicklinks row 1
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              // New Cashout button
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, '/create_cashout');
+                                  },
+                                  child: QuickLinkButton(
+                                    iconColor: brandColor,
+                                    buttonTitle: 'New \n Cashout',
+                                    quickLinkIcon: Icons.upload,
+                                  )),
+
+                              // New Deposit Button
+                              TextButton(
+                                  onPressed: () {},
+                                  child: QuickLinkButton(
+                                    iconColor: Color(0xff225560),
+                                    buttonTitle: 'New \n Deposit',
+                                    quickLinkIcon: Icons.download,
+                                  )),
+
+                              // Your Record Data
+                              TextButton(
+                                  onPressed: () {},
+                                  child: QuickLinkButton(
+                                    iconColor: Color(0xff000000),
+                                    buttonTitle: 'Records \n Data',
+                                    quickLinkIcon: Icons.auto_graph,
+                                  )),
+
+                              // View POS Terminals
+                              TextButton(
+                                  onPressed: () {},
+                                  child: QuickLinkButton(
+                                    iconColor: Color(0xffE3655B),
+                                    buttonTitle: 'POS \n Terminals',
+                                    quickLinkIcon: Icons.phone_android_rounded,
+                                  )),
+
+                              // apply for new POS Terminal
+                            ],
+                          )
+
+                          // quicklinks row 2
                         ],
                       ),
-                      SizedBox(
-                        height: mediaHeight * 0.02,
+
+                      // Transactions table
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: mediaHeight * 0.02,
+                          left: mediaWidth * 0.025,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Transactions',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: mediaHeight * 0.02,
+                                  fontWeight: FontWeight.w900),
+                            ),
+                          ],
+                        ),
                       ),
 
                       // when the transaction from the API is empty

@@ -93,42 +93,42 @@ class AmountDisplaySection extends StatelessWidget {
                     height: mediaHeight * 0.02,
                   ),
                   //  Record button row (new record and View Records button)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: mediaWidth * 0.4,
-                        child: ElevatedButton(
-                          child: Text(
-                            'NEW RECORD',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          onPressed: () => {
-                            Navigator.pushNamed(context, '/create_cashout')
-                          },
-                          style:
-                              ElevatedButton.styleFrom(primary: Colors.white),
-                        ),
-                      ),
-                      SizedBox(
-                        width: mediaWidth * 0.4,
-                        child: OutlinedButton(
-                          child: Text(
-                            'VIEW RECORDS',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          onPressed: () => {},
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     SizedBox(
+                  //       width: mediaWidth * 0.4,
+                  //       child: ElevatedButton(
+                  //         child: Text(
+                  //           'NEW RECORD',
+                  //           style: TextStyle(color: Colors.black),
+                  //         ),
+                  //         onPressed: () => {
+                  //           Navigator.pushNamed(context, '/create_cashout')
+                  //         },
+                  //         style:
+                  //             ElevatedButton.styleFrom(primary: Colors.white),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: mediaWidth * 0.4,
+                  //       child: OutlinedButton(
+                  //         child: Text(
+                  //           'VIEW RECORDS',
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //         onPressed: () => {},
+                  //         style: OutlinedButton.styleFrom(
+                  //           side: BorderSide(
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
                 ],
               ),
             ),
