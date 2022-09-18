@@ -89,7 +89,19 @@ class _RecordFormState extends State<RecordForm> {
       );
 
       if (response.statusCode == 201) {
+        // pop all the pages
         Navigator.pop(context);
+
+        // display success message
+        const errorSnackBar = SnackBar(
+          content: Text('Record successfully stored.'),
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          elevation: 10,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+
+        // push to the dashboard main screen.
         Navigator.pushNamed(context, '/dashboard_main');
       }
 
