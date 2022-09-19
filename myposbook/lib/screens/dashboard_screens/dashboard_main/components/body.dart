@@ -182,7 +182,11 @@ class DashboardMainBody extends StatelessWidget {
             dynamic responseData = snapshot.data;
             var jsonDecoding = jsonDecode(responseData);
 
+            // transactions
             var transactions = jsonDecoding['transactions'];
+
+            // biz name
+            var pos_name = jsonDecoding['pos_name'];
 
             // Amount and charges Data
             final cashoutAmount =
@@ -222,7 +226,7 @@ class DashboardMainBody extends StatelessWidget {
                                       'Hello',
                                       style: greetingHeadingStyle,
                                     ),
-                                    greetingDataPadding('James')
+                                    greetingDataPadding(pos_name)
                                   ],
                                 ),
 
