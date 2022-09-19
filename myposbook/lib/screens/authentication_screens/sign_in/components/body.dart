@@ -262,6 +262,7 @@ class _SignInBodyState extends State<SignInBody> {
         //to see if the merchant Acct
         var checkMerchantStatus = await CheckMerchantAcctStatus();
         if (checkMerchantStatus.statusCode == 200) {
+          Navigator.popUntil(context, (route) => route.isFirst);
           Navigator.pushNamed(context, '/dashboard_main');
         } else if (checkMerchantStatus.statusCode == 401) {
           Navigator.pushNamed(context, '/login');
