@@ -22,7 +22,7 @@ class RecordForm extends StatefulWidget {
 
 class _RecordFormState extends State<RecordForm> {
   final _formKey = GlobalKey<FormState>();
-  String dropDownValue = posTerminals.first;
+  String dropDownValue = 'Opay';
 
   TextField recordDataForm(String label, controller) => TextField(
         keyboardType: TextInputType.number,
@@ -54,8 +54,10 @@ class _RecordFormState extends State<RecordForm> {
     http.Response response = await http.get(url);
 
     // convert list<dynamic> to List <String>
-    dynamic jsonData = jsonDecode(response.body);
-    final List<String> posTers = jsonData.map((e) => e as String).toList();
+    dynamic data = response.body;
+    final jsonData = jsonDecode(response.body) as List;
+    List<String> posTers = jsonData.map((e) => e.toString()).toList();
+
     setState(() {
       posTerminalsApiList = posTers;
     });
@@ -84,10 +86,12 @@ class _RecordFormState extends State<RecordForm> {
       final charges = _chargesController.text;
       final posTerminal = dropDownValue;
 
+      print(posTerminal);
+
       Map<String, String> formData = {
         'amount': amount,
         'charge': charges,
-        'terminal': posTerminal
+        'pos_terminal': posTerminal
       };
 
       // get token from secureStorage
@@ -158,7 +162,7 @@ class _RecordFormState extends State<RecordForm> {
               // pos terminals
               items:
                   posTerminalsApiList.map<DropdownMenuItem<String>>((_value) {
-                // print(posTerminalsApiList.runtimeType);
+                print(posTerminalsApiList);
                 return DropdownMenuItem(
                   value: _value,
                   child: Text(
