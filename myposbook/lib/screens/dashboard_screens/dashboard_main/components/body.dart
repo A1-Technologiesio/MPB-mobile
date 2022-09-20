@@ -46,11 +46,18 @@ class DashboardMainBody extends StatelessWidget {
 
       // when the token is expired
       if (response.statusCode == 401) {
+        // where the login credentials provided a 401 error
+        const errorSnackBar = SnackBar(
+          content: Text('Session Expired you have been logged out.'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          elevation: 10,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
         Navigator.pushNamed(context, '/login');
       }
 
-      final body = response.body;
-      return body;
+      return response.body;
     }
 
     // // dashboard data
