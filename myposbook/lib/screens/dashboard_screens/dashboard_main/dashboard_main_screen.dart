@@ -20,7 +20,6 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
       WelcomeScreenMain(),
       WelcomeScreenMain(),
       WelcomeScreenMain(),
-      WelcomeScreenMain(),
     ];
 
     navBarItem(icon, String title) {
@@ -54,7 +53,6 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
           navBarItem(Icons.save, "Cashouts"),
           navBarItem(Icons.download_rounded, "Deposits"),
           navBarItem(Icons.settings, "Settings"),
-          navBarItem(Icons.logout, "Logout"),
         ],
       ),
     );
