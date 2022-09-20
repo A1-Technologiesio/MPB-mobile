@@ -86,8 +86,6 @@ class _RecordFormState extends State<RecordForm> {
       final charges = _chargesController.text;
       final posTerminal = dropDownValue;
 
-      print(posTerminal);
-
       Map<String, String> formData = {
         'amount': amount,
         'charge': charges,
@@ -162,7 +160,6 @@ class _RecordFormState extends State<RecordForm> {
               // pos terminals
               items:
                   posTerminalsApiList.map<DropdownMenuItem<String>>((_value) {
-                print(posTerminalsApiList);
                 return DropdownMenuItem(
                   value: _value,
                   child: Text(
