@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +22,6 @@ class RecordForm extends StatefulWidget {
 
 class _RecordFormState extends State<RecordForm> {
   final _formKey = GlobalKey<FormState>();
-  // print();
   String dropDownValue = posTerminals.first;
 
   TextField recordDataForm(String label, controller) => TextField(
@@ -42,6 +43,28 @@ class _RecordFormState extends State<RecordForm> {
               color: Colors.white54,
             ))),
       );
+
+  // override initState
+  String? selectedValue;
+  List posTerminalsApiList = [];
+
+  // APi data future
+  Future posTerminalsList() async {
+    final url = Uri.http(APIUrlRoot, 'api/pos-terminals');
+    http.Response response = await http.get(url);
+
+    // convert list<dynamic> to List <String>
+    dynamic jsonData = jsonDecode(response.body);
+    final List<String> posTers = jsonData.map((e) => e as String).toList();
+    setState(() {
+      posTerminalsApiList = posTers;
+    });
+  }
+
+  void initState() {
+    super.initState();
+    posTerminalsList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,28 +154,29 @@ class _RecordFormState extends State<RecordForm> {
                   color: brandColor,
                 ),
               ),
-              // underline: Border.(bottom: 2),
 
               // pos terminals
-              items: posTerminals
-                  .map<DropdownMenuItem<String>>(
-                    (String _value) => DropdownMenuItem<String>(
-                      value: _value,
-                      child: Text(
-                        _value,
-                        style: TextStyle(),
-                      ),
-                    ),
-                  )
-                  .toList(),
+              items:
+                  posTerminalsApiList.map<DropdownMenuItem<String>>((_value) {
+                // print(posTerminalsApiList.runtimeType);
+                return DropdownMenuItem(
+                  value: _value,
+                  child: Text(
+                    _value,
+                    style: TextStyle(),
+                  ),
+                );
+              }).toList(),
 
               // to change the color of the selected item
-              selectedItemBuilder: (BuildContext context) => posTerminals
+              selectedItemBuilder: (BuildContext context) => posTerminalsApiList
                   .map((value) => Text(dropDownValue,
                       style: const TextStyle(
                         color: Colors.white70,
                       )))
                   .toList(),
+
+              // on changed
               onChanged: (String? value) {
                 setState(() {
                   dropDownValue = value!;
