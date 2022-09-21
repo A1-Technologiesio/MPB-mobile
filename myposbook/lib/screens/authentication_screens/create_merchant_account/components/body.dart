@@ -79,17 +79,22 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
     );
 
     Future CreateMerchantAccount() async {
-      // set up the merchant link
+      // merchant account endpoint constructed
       var APIURL = Uri.http(APIUrlRoot, 'api/create/merchant-account/');
 
+      // get the access token.
       final storage = await secureStorage();
       final accessToken = storage['access_token'];
+
+      // convert List to comma separated string
+      // String myPosTerminals = selectedItems.join(', ');
 
       // user body and authorisation
       Map userData = {
         'pos_business_name': _posBusinessName.text,
         'local_government_area': _LGA.text,
         'state': dropDownValue,
+        // 'my_pos_terminals': myPosTerminals,
         // ''
       };
 
@@ -235,9 +240,19 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                                 //       .remove(posTerminalsApiList[index]);
                                 // }
                                 setState(() {
-                                  posTerminalsMapList[index]['status'] = value;
+                                  if (selectedItems
+                                      .contains(posTerminalsApiList[index])) {
+                                    selectedItems
+                                        .remove(posTerminalsApiList[index]);
+                                    posTerminalsMapList[index]['status'] =
+                                        false;
+                                  } else {
+                                    selectedItems
+                                        .add(posTerminalsApiList[index]);
+                                    posTerminalsMapList[index]['status'] = true;
+                                  }
                                 });
-                                // print(selectedItems);
+                                print(selectedItems);
                               },
                               // selectedColor: brandColor,
                             );
