@@ -45,16 +45,14 @@ class _RecordFormState extends State<RecordForm> {
       );
 
   // override initState
-  String? selectedValue;
   List posTerminalsApiList = [];
 
-  // APi data future
+  // List of Terminals future
   Future posTerminalsList() async {
-    final url = Uri.http(APIUrlRoot, 'api/pos-terminals');
+    final url = Uri.http(APIUrlRoot, 'api/pos-terminals/');
     http.Response response = await http.get(url);
 
     // convert list<dynamic> to List <String>
-    dynamic data = response.body;
     final jsonData = jsonDecode(response.body) as List;
     List<String> posTers = jsonData.map((e) => e.toString()).toList();
 
