@@ -13,12 +13,46 @@ class CreateMerchantAcctBody extends StatefulWidget {
 }
 
 class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
-  // controllers
+  // form controllers
   final TextEditingController _posBusinessName = TextEditingController();
   final TextEditingController _LGA = TextEditingController();
 
+  // form key
   final _formKey = GlobalKey<FormState>();
+
+  // dropdown value
   String dropDownValue = listOfStates.first;
+
+  // chip value
+  int chipValue = 0;
+  String? item;
+
+  // empty list to hold pos terminals from state
+  List posTerminalsApiList = [];
+
+  // items selected stored here.
+  List selectedItems = [];
+
+  // APi data future
+  Future posTerminalsList() async {
+    final url = Uri.http(APIUrlRoot, 'api/pos-terminals');
+    http.Response response = await http.get(url);
+
+    // convert list<dynamic> to List <String>
+    dynamic data = response.body;
+    final jsonData = jsonDecode(response.body) as List;
+    List<String> posTers = jsonData.map((e) => e.toString()).toList();
+
+    setState(() {
+      posTerminalsApiList = posTers;
+    });
+  }
+
+  void initState() {
+    super.initState();
+    posTerminalsList();
+    // chipValue = 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +66,7 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
       height: mediaHeight * 0.02,
     );
 
-    // flutter secure storage init
-    secureStorage() async {
-      const storage = FlutterSecureStorage();
-
-      Map<String, String> access_token = await storage.readAll();
-      return access_token;
-      // _token = access_token;
-    }
+    print(selectedItems);
 
     Future CreateMerchantAccount() async {
       // set up the merchant link
@@ -75,7 +102,9 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
         );
         ScaffoldMessenger.of(context).showSnackBar(merchantSnackbarMessage);
         Navigator.pushNamed(context, '/dashboard_main');
-      } else if (response.statusCode == 401) {
+      }
+      // on unauthorized error
+      else if (response.statusCode == 401) {
         // where the login credentials provided a 401 error
         const errorSnackBar = SnackBar(
           content:
@@ -84,8 +113,6 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
         ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
         Navigator.pushNamed(context, '/login');
       }
-      print('${response.statusCode}');
-      print('${response.body}');
     }
 
     return SafeArea(
@@ -175,6 +202,75 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                         },
                       ),
                     ),
+                  ),
+
+                  // choice chips
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Select POS Terminals you use'),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(
+                          posTerminalsApiList.length,
+                          (index) {
+                            return ChoiceChip(
+                              label: Text(posTerminalsApiList[index]),
+                              selected: chipValue == index,
+                              onSelected: (value) {
+                                setState(() {
+                                  // check if the pos terminal option added exists
+                                  // else  remove it from the selected
+                                  // items list
+                                  if (selectedItems
+                                      .contains(posTerminalsApiList[index])) {
+                                    selectedItems
+                                        .remove(posTerminalsApiList[index]);
+                                  }
+                                  // then add it
+                                  else {
+                                    selectedItems
+                                        .add(posTerminalsApiList[index]);
+                                  }
+                                  // print(value);
+                                  // print(selectedItems);
+                                  chipValue = value ? index : chipValue;
+                                });
+                              },
+                              selectedColor: brandColor,
+                            );
+                          },
+                        ),
+                        // []
+                        // [
+                        //   // posTerminalsApiList.map((e) {
+                        //   //   return '';
+                        //   // }).toList(),
+
+                        // ],
+                      ),
+                      Row(
+                        children: [
+                          ChoiceChip(
+                            label: Text('Opay'),
+                            selected: false,
+                            onSelected: (selected) {
+                              setState(() {
+                                // chipValue = selected;
+                              });
+                            },
+                          ),
+                          ChoiceChip(
+                            label: Text('Opay'),
+                            selected: false,
+                          ),
+                          ChoiceChip(
+                            label: Text('Opay'),
+                            selected: false,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
 
                   // submit button
