@@ -30,6 +30,9 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
   // empty list to hold pos terminals from state
   List posTerminalsApiList = [];
 
+  // empty list to hold a map of pos terminal name and status
+  List posTerminalsMapList = [];
+
   // items selected stored here.
   List selectedItems = [];
 
@@ -37,21 +40,30 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
   Future posTerminalsList() async {
     final url = Uri.http(APIUrlRoot, 'api/pos-terminals');
     http.Response response = await http.get(url);
-
     // convert list<dynamic> to List <String>
-    dynamic data = response.body;
     final jsonData = jsonDecode(response.body) as List;
-    List<String> posTers = jsonData.map((e) => e.toString()).toList();
+
+    List<String> posTerminals = jsonData.map((e) => e.toString()).toList();
 
     setState(() {
-      posTerminalsApiList = posTers;
+      posTerminalsApiList = posTerminals;
     });
+
+    return response.body;
   }
 
   void initState() {
     super.initState();
     posTerminalsList();
-    // chipValue = 0;
+
+    // create map for name and status
+    List posMap = posTerminalsApiList.map((e) {
+      return {
+        'name': e,
+        'status': false,
+      };
+    }).toList();
+    posTerminalsMapList = posMap;
   }
 
   @override
@@ -65,8 +77,6 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
     var spaceBetweenFormFIelds = SizedBox(
       height: mediaHeight * 0.02,
     );
-
-    print(selectedItems);
 
     Future CreateMerchantAccount() async {
       // set up the merchant link
@@ -216,28 +226,20 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                           (index) {
                             return ChoiceChip(
                               label: Text(posTerminalsApiList[index]),
-                              selected: chipValue == index,
+                              selected: posTerminalsMapList[index]['status'],
                               onSelected: (value) {
+                                // if (value = true) {
+                                //   selectedItems.add(posTerminalsApiList[index]);
+                                // } else {
+                                //   selectedItems
+                                //       .remove(posTerminalsApiList[index]);
+                                // }
                                 setState(() {
-                                  // check if the pos terminal option added exists
-                                  // else  remove it from the selected
-                                  // items list
-                                  if (selectedItems
-                                      .contains(posTerminalsApiList[index])) {
-                                    selectedItems
-                                        .remove(posTerminalsApiList[index]);
-                                  }
-                                  // then add it
-                                  else {
-                                    selectedItems
-                                        .add(posTerminalsApiList[index]);
-                                  }
-                                  // print(value);
-                                  // print(selectedItems);
-                                  chipValue = value ? index : chipValue;
+                                  posTerminalsMapList[index]['status'] = value;
                                 });
+                                // print(selectedItems);
                               },
-                              selectedColor: brandColor,
+                              // selectedColor: brandColor,
                             );
                           },
                         ),
@@ -249,27 +251,6 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
 
                         // ],
                       ),
-                      Row(
-                        children: [
-                          ChoiceChip(
-                            label: Text('Opay'),
-                            selected: false,
-                            onSelected: (selected) {
-                              setState(() {
-                                // chipValue = selected;
-                              });
-                            },
-                          ),
-                          ChoiceChip(
-                            label: Text('Opay'),
-                            selected: false,
-                          ),
-                          ChoiceChip(
-                            label: Text('Opay'),
-                            selected: false,
-                          ),
-                        ],
-                      )
                     ],
                   ),
 
