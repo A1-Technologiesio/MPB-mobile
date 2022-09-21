@@ -30,9 +30,6 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
   // empty list to hold pos terminals from state
   List posTerminalsApiList = [];
 
-  // empty list to hold a map of pos terminal name and status
-  List posTerminalsMapList = [];
-
   // items selected stored here.
   List selectedItems = [];
 
@@ -43,7 +40,13 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
     // convert list<dynamic> to List <String>
     final jsonData = jsonDecode(response.body) as List;
 
-    List<String> posTerminals = jsonData.map((e) => e.toString()).toList();
+    // create map for name and status
+    List posTerminals = jsonData.map((e) {
+      return {
+        'name': e,
+        'status': false,
+      };
+    }).toList();
 
     setState(() {
       posTerminalsApiList = posTerminals;
@@ -55,15 +58,6 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
   void initState() {
     super.initState();
     posTerminalsList();
-
-    // create map for name and status
-    List posMap = posTerminalsApiList.map((e) {
-      return {
-        'name': e,
-        'status': false,
-      };
-    }).toList();
-    posTerminalsMapList = posMap;
   }
 
   @override
@@ -79,17 +73,22 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
     );
 
     Future CreateMerchantAccount() async {
-      // set up the merchant link
+      // merchant account endpoint constructed
       var APIURL = Uri.http(APIUrlRoot, 'api/create/merchant-account/');
 
+      // get the access token.
       final storage = await secureStorage();
       final accessToken = storage['access_token'];
+
+      // convert List to comma separated string
+      String myPosTerminals = selectedItems.join(', ');
 
       // user body and authorisation
       Map userData = {
         'pos_business_name': _posBusinessName.text,
         'local_government_area': _LGA.text,
         'state': dropDownValue,
+        'my_pos_terminals': myPosTerminals,
         // ''
       };
 
@@ -225,21 +224,23 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                           posTerminalsApiList.length,
                           (index) {
                             return ChoiceChip(
-                              label: Text(posTerminalsApiList[index]),
-                              selected: posTerminalsMapList[index]['status'],
+                              label: Text(posTerminalsApiList[index]['name']),
+                              selected: posTerminalsApiList[index]['status'],
                               onSelected: (value) {
-                                // if (value = true) {
-                                //   selectedItems.add(posTerminalsApiList[index]);
-                                // } else {
-                                //   selectedItems
-                                //       .remove(posTerminalsApiList[index]);
-                                // }
                                 setState(() {
-                                  posTerminalsMapList[index]['status'] = value;
+                                  if (selectedItems.contains(
+                                      posTerminalsApiList[index]['name'])) {
+                                    selectedItems.remove(
+                                        posTerminalsApiList[index]['name']);
+                                    posTerminalsApiList[index]['status'] =
+                                        false;
+                                  } else {
+                                    selectedItems.add(
+                                        posTerminalsApiList[index]['name']);
+                                    posTerminalsApiList[index]['status'] = true;
+                                  }
                                 });
-                                // print(selectedItems);
                               },
-                              // selectedColor: brandColor,
                             );
                           },
                         ),
