@@ -142,7 +142,7 @@ class DashboardMainBody extends StatelessWidget {
                               SizedBox(
                                 height: mediaHeight * 0.005,
                               ),
-                              Text(transactionDate)
+                              Text(transactionDate.toString())
                             ],
                           ),
                         ],
