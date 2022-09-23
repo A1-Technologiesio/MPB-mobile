@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:myposbook/constants.dart';
 
 class SettingsBody extends StatefulWidget {
   const SettingsBody({Key? key}) : super(key: key);
@@ -117,7 +119,13 @@ class _SettingsBodyState extends State<SettingsBody> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  FlutterSecureStorage storage = FlutterSecureStorage();
+                  await storage.deleteAll();
+
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                  Navigator.pushNamed(context, '/welcome_screen');
+                },
                 child: Text(
                   'LOGOUT',
                   style: TextStyle(
