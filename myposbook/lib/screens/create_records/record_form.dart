@@ -4,15 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
 import 'package:http/http.dart' as http;
 
-/* 
-to be replaced with api data
-*/
-List<String> posTerminals = [
-  'Select Terminal',
-  'Opay',
-  'Accelerex',
-];
-
 class RecordForm extends StatefulWidget {
   const RecordForm({Key? key}) : super(key: key);
 
@@ -49,8 +40,18 @@ class _RecordFormState extends State<RecordForm> {
 
   // List of Terminals future
   Future posTerminalsList() async {
-    final url = Uri.http(APIUrlRoot, 'api/pos-terminals/');
-    http.Response response = await http.get(url);
+    final url = Uri.http(APIUrlRoot, 'api/cashout/create/');
+    dynamic tokenStorage = await secureStorage();
+    String accessToken = tokenStorage['access_token'];
+
+    // get token
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $accessToken',
+    };
+
+    http.Response response = await http.get(url, headers: requestHeaders);
 
     // convert list<dynamic> to List <String>
     final jsonData = jsonDecode(response.body) as List;
@@ -61,6 +62,7 @@ class _RecordFormState extends State<RecordForm> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     posTerminalsList();
@@ -78,6 +80,7 @@ class _RecordFormState extends State<RecordForm> {
       height: screenHeight * 0.02,
     );
 
+    // create record async function
     Future createRecord() async {
       // form data
       final amount = _amountController.text;
@@ -127,8 +130,6 @@ class _RecordFormState extends State<RecordForm> {
         // push to the dashboard main screen.
         Navigator.pushNamed(context, '/dashboard_main');
       }
-
-      print(response);
     }
 
     return Form(
