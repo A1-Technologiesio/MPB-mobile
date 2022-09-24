@@ -5,7 +5,11 @@ import 'package:myposbook/constants.dart';
 import 'package:http/http.dart' as http;
 
 class RecordForm extends StatefulWidget {
-  const RecordForm({Key? key}) : super(key: key);
+  String recordRoute;
+  RecordForm({
+    Key? key,
+    required this.recordRoute,
+  }) : super(key: key);
 
   @override
   State<RecordForm> createState() => _RecordFormState();
@@ -101,7 +105,7 @@ class _RecordFormState extends State<RecordForm> {
       // API
       var constructAPIRoute = Uri.http(
         APIUrlRoot,
-        'api/cashout/create/',
+        widget.recordRoute,
       );
 
       Map<String, String> requestHeaders = {
