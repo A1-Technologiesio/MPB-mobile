@@ -66,7 +66,7 @@ class CashoutCreateRecordBody extends StatelessWidget {
                     // forms
                     Padding(
                       padding: EdgeInsets.only(top: mediaHeight * 0.06),
-                      child: RecordForm(),
+                      child: RecordForm(recordRoute: 'api/cashout/create/'),
                     ),
                   ],
                 ),
