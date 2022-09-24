@@ -66,7 +66,9 @@ class CreateDepositRecordBody extends StatelessWidget {
                     // forms
                     Padding(
                       padding: EdgeInsets.only(top: mediaHeight * 0.06),
-                      child: const RecordForm(),
+                      child: RecordForm(
+                        recordRoute: 'api/deposit/create/',
+                      ),
                     ),
                   ],
                 ),
