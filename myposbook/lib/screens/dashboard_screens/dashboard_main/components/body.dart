@@ -305,7 +305,10 @@ class DashboardMainBody extends StatelessWidget {
 
                               // New Deposit Button
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, '/create_deposit');
+                                  },
                                   child: QuickLinkButton(
                                     iconColor: Color(0xff225560),
                                     buttonTitle: 'New \n Deposit',
