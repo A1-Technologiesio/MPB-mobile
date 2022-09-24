@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/create_records/record_form.dart';
 
-class CashoutCreateRecordBody extends StatelessWidget {
-  CashoutCreateRecordBody({Key? key}) : super(key: key);
+class CreateDepositRecordBody extends StatelessWidget {
+  CreateDepositRecordBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,9 @@ class CashoutCreateRecordBody extends StatelessWidget {
                     // forms
                     Padding(
                       padding: EdgeInsets.only(top: mediaHeight * 0.06),
-                      child: RecordForm(recordRoute: 'api/cashout/create/'),
+                      child: RecordForm(
+                        recordRoute: 'api/deposit/create/',
+                      ),
                     ),
                   ],
                 ),
