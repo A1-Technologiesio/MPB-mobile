@@ -13,7 +13,7 @@ class RecordForm extends StatefulWidget {
 
 class _RecordFormState extends State<RecordForm> {
   final _formKey = GlobalKey<FormState>();
-  String dropDownValue = 'Opay';
+  String dropDownValue = '';
 
   TextField recordDataForm(String label, controller) => TextField(
         keyboardType: TextInputType.number,
@@ -59,6 +59,7 @@ class _RecordFormState extends State<RecordForm> {
 
     setState(() {
       posTerminalsApiList = posTers;
+      dropDownValue = posTerminalsApiList.first;
     });
   }
 
