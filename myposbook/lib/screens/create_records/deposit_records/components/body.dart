@@ -25,7 +25,7 @@ class CreateDepositRecordBody extends StatelessWidget {
               ),
               image: DecorationImage(
                 image: AssetImage(
-                  'lib/assets/images/pos-payment.jpg',
+                  'lib/assets/images/naira-notes.jpg',
                 ),
                 fit: BoxFit.fill,
               ),

@@ -3,6 +3,7 @@ import 'package:myposbook/screens/authentication_screens/create_account/create_a
 import 'package:myposbook/screens/authentication_screens/create_merchant_account/create_merchant_account_main.dart';
 import 'package:myposbook/screens/authentication_screens/sign_in/sign_in_main.dart';
 import 'package:myposbook/screens/create_records/cashout_records/cashout_main.dart';
+import 'package:myposbook/screens/create_records/deposit_records/deposit_main_screen.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/dashboard_main_screen.dart';
 import 'package:myposbook/screens/welcome_screen/welcome_screen_main.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         // welcomescreen routes
         '/welcome_screen': (context) => WelcomeScreenMain(),
-        
+
         // account createion
         '/create_account': (context) => CreateAccountMain(),
         '/login': (context) => SignInMain(),
@@ -31,8 +32,9 @@ class MyApp extends StatelessWidget {
         // dashboard
         '/dashboard_main': (context) => DashboardMainScreen(),
 
-        // create records 
-        '/create_cashout': (context)=> CreateCashoutMain(),
+        // create records
+        '/create_cashout': (context) => CreateCashoutMain(),
+        '/create_deposit': (context) => CreateDepositRecordMain(),
       },
     );
   }
