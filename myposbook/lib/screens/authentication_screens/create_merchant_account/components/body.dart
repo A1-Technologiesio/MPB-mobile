@@ -193,10 +193,6 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                       child: DropdownButton<String>(
                         underline: SizedBox(),
                         value: dropDownValue,
-                        icon: Padding(
-                          padding: EdgeInsets.only(left: mediaWidth * 0.6),
-                          child: const Icon(Icons.arrow_circle_down_sharp),
-                        ),
                         items: listOfStates
                             .map<DropdownMenuItem<String>>(
                                 (String _value) => DropdownMenuItem<String>(
@@ -214,45 +210,51 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                   ),
 
                   // choice chips
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Select POS Terminals you use'),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: List.generate(
-                          posTerminalsApiList.length,
-                          (index) {
-                            return ChoiceChip(
-                              label: Text(posTerminalsApiList[index]['name']),
-                              selected: posTerminalsApiList[index]['status'],
-                              onSelected: (value) {
-                                setState(() {
-                                  if (selectedItems.contains(
-                                      posTerminalsApiList[index]['name'])) {
-                                    selectedItems.remove(
-                                        posTerminalsApiList[index]['name']);
-                                    posTerminalsApiList[index]['status'] =
-                                        false;
-                                  } else {
-                                    selectedItems.add(
-                                        posTerminalsApiList[index]['name']);
-                                    posTerminalsApiList[index]['status'] = true;
-                                  }
-                                });
-                              },
-                            );
-                          },
-                        ),
-                        // []
-                        // [
-                        //   // posTerminalsApiList.map((e) {
-                        //   //   return '';
-                        //   // }).toList(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Select POS Terminals you use'),
+                        Wrap(
+                          runSpacing: 1.0,
+                          spacing: 3.0,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          children: List.generate(
+                            posTerminalsApiList.length,
+                            (index) {
+                              return ChoiceChip(
+                                label: Text(posTerminalsApiList[index]['name']),
+                                selected: posTerminalsApiList[index]['status'],
+                                onSelected: (value) {
+                                  setState(() {
+                                    if (selectedItems.contains(
+                                        posTerminalsApiList[index]['name'])) {
+                                      selectedItems.remove(
+                                          posTerminalsApiList[index]['name']);
+                                      posTerminalsApiList[index]['status'] =
+                                          false;
+                                    } else {
+                                      selectedItems.add(
+                                          posTerminalsApiList[index]['name']);
+                                      posTerminalsApiList[index]['status'] =
+                                          true;
+                                    }
+                                  });
+                                },
+                              );
+                            },
+                          ),
+                          // []
+                          // [
+                          //   // posTerminalsApiList.map((e) {
+                          //   //   return '';
+                          //   // }).toList(),
 
-                        // ],
-                      ),
-                    ],
+                          // ],
+                        ),
+                      ],
+                    ),
                   ),
 
                   // submit button
@@ -265,25 +267,12 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                           CreateMerchantAccount();
                         }
                       },
-                      child: Text('Create Account'),
+                      child: Text('Save Details'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xff27142A),
+                        backgroundColor: const Color(0xff27142A),
                       ),
                     ),
                   ),
-                  spaceBetweenFormFIelds,
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('I already have an Account'),
-                      style: TextButton.styleFrom(
-                        elevation: 0,
-                        primary: Color(0xff726E6E),
-                      ),
-                    ),
-                  ),
-
                   //
                 ],
               ),
