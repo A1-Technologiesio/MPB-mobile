@@ -267,25 +267,12 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                           CreateMerchantAccount();
                         }
                       },
-                      child: Text('Create Account'),
+                      child: Text('Save Details'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff27142A),
                       ),
                     ),
                   ),
-                  spaceBetweenFormFIelds,
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('I already have an Account'),
-                      style: TextButton.styleFrom(
-                        elevation: 0,
-                        primary: Color(0xff726E6E),
-                      ),
-                    ),
-                  ),
-
                   //
                 ],
               ),
