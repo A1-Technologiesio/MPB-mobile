@@ -384,19 +384,16 @@ class DashboardMainBody extends StatelessWidget {
 
                       // when the transaction has data
                       else
-                        Container(
-                          height: mediaHeight * 0.26,
-                          child: ListView(
-                            children: [
-                              for (var item in transactions)
-                                transactionItem(
-                                  item['title'],
-                                  item['date_time'],
-                                  item['amount'],
-                                  item['charge'],
-                                )
-                            ],
-                          ),
+                        Column(
+                          children: [
+                            for (var item in transactions)
+                              transactionItem(
+                                item['title'],
+                                item['date_time'],
+                                item['amount'],
+                                item['charge'],
+                              )
+                          ],
                         ),
                     ],
                   ),
