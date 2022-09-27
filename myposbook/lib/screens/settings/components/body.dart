@@ -99,12 +99,13 @@ class _SettingsBodyState extends State<SettingsBody> {
             ),
             settingsButton(
               'lib/assets/images/settings/image 17.png',
-              'Profile Settings',
+              'About My POS Book',
               context,
             ),
             SizedBox(
               height: screenHeight * 0.03,
             ),
+
             // Logout button
             SizedBox(
               width: double.infinity,
@@ -138,6 +139,7 @@ class _SettingsBodyState extends State<SettingsBody> {
             SizedBox(
               height: screenHeight * 0.01,
             ),
+
             // social media buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
