@@ -318,7 +318,9 @@ class DashboardMainBody extends StatelessWidget {
 
                               // Your Record Data
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/records_data');
+                                },
                                 child: QuickLinkButton(
                                   iconColor: Color(0xff000000),
                                   buttonTitle: 'Records \n Data',
