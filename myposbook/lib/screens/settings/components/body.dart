@@ -20,8 +20,8 @@ class _SettingsBodyState extends State<SettingsBody> {
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth * 0.03,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // account section
             settingsTitle('Account', context),
@@ -169,11 +169,12 @@ class _SettingsBodyState extends State<SettingsBody> {
 }
 
 // settings Button
-TextButton settingsButton(String imagePath, String buttonTitle, context) {
+TextButton settingsButton(String imagePath, String buttonTitle, context,
+    {onpressed: null}) {
   final screenHeight = MediaQuery.of(context).size.height;
   final screenWidth = MediaQuery.of(context).size.width;
   return TextButton(
-    onPressed: () {},
+    onPressed: onpressed,
     child: Row(
       children: [
         Row(
