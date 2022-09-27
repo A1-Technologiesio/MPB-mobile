@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
-import 'package:myposbook/screens/create_records/record_form.dart';
+import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/create_records/record_form.dart';
 
 class CashoutCreateRecordBody extends StatelessWidget {
   CashoutCreateRecordBody({Key? key}) : super(key: key);

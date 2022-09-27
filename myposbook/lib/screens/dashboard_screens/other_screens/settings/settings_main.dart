@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myposbook/screens/settings/components/body.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/settings/components/body.dart';
 
 class SettingsMain extends StatelessWidget {
   const SettingsMain({Key? key}) : super(key: key);

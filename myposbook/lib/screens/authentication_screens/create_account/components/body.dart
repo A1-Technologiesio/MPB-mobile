@@ -187,7 +187,7 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                     height: mediaHeight * 0.06,
                     width: double.infinity,
                     child: TextButton(
-                      Widget: Text('I already have an Account'),
+                      child: Text('I already have an Account'),
                       onPressed: () {
                         Navigator.pushNamed(context, '/login');
                       },

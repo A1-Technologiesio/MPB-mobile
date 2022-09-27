@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/body.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/settings/settings_main.dart';
 import 'package:myposbook/screens/welcome_screen/welcome_screen_main.dart';
-
-import '../../settings/settings_main.dart';
 
 class DashboardMainScreen extends StatefulWidget {
   const DashboardMainScreen({Key? key}) : super(key: key);

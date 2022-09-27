@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
-import 'package:myposbook/screens/create_records/cashout_records/components/body.dart';
+import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/create_records/cashout_records/components/body.dart';
 
 class CreateCashoutMain extends StatelessWidget {
   const CreateCashoutMain({Key? key}) : super(key: key);
