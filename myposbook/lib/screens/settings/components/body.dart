@@ -84,10 +84,10 @@ class _SettingsBodyState extends State<SettingsBody> {
                 ),
               ),
               badgeColor: Colors.blue,
-              position: BadgePosition.center(),
+              position: BadgePosition.topEnd(),
               child: settingsButton(
                 'lib/assets/images/settings/backup.png',
-                'Backup',
+                'Monthly Backups',
                 context,
               ),
             ),
