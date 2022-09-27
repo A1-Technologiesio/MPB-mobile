@@ -293,15 +293,16 @@ class DashboardMainBody extends StatelessWidget {
                             children: [
                               // New Cashout button
                               TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, '/create_cashout');
-                                  },
-                                  child: QuickLinkButton(
-                                    iconColor: brandColor,
-                                    buttonTitle: 'New \n Cashout',
-                                    quickLinkIcon: Icons.upload,
-                                  )),
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, '/create_cashout');
+                                },
+                                child: QuickLinkButton(
+                                  iconColor: brandColor,
+                                  buttonTitle: 'New \n Cashout',
+                                  quickLinkIcon: Icons.upload,
+                                ),
+                              ),
 
                               // New Deposit Button
                               TextButton(
@@ -317,12 +318,13 @@ class DashboardMainBody extends StatelessWidget {
 
                               // Your Record Data
                               TextButton(
-                                  onPressed: () {},
-                                  child: QuickLinkButton(
-                                    iconColor: Color(0xff000000),
-                                    buttonTitle: 'Records \n Data',
-                                    quickLinkIcon: Icons.auto_graph,
-                                  )),
+                                onPressed: () {},
+                                child: QuickLinkButton(
+                                  iconColor: Color(0xff000000),
+                                  buttonTitle: 'Records \n Data',
+                                  quickLinkIcon: Icons.auto_graph,
+                                ),
+                              ),
 
                               // View POS Terminals
                               TextButton(
