@@ -191,6 +191,10 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                         color: formBgColor,
                       ),
                       child: DropdownButton<String>(
+                        icon: const Visibility(
+                          visible: false,
+                          child: Icon(Icons.arrow_downward),
+                        ),
                         underline: SizedBox(),
                         value: dropDownValue,
                         items: listOfStates
@@ -208,6 +212,7 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                       ),
                     ),
                   ),
+                  spaceBetweenFormFIelds,
 
                   // choice chips
                   SizedBox(
@@ -215,7 +220,9 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Select POS Terminals you use'),
+                        Text(
+                          'Select the POS Terminals you are currently using',
+                        ),
                         Wrap(
                           runSpacing: 1.0,
                           spacing: 3.0,
@@ -256,10 +263,12 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                       ],
                     ),
                   ),
+                  spaceBetweenFormFIelds,
 
                   // submit button
                   SizedBox(
                     width: double.infinity,
+                    height: mediaHeight * 0.06,
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
@@ -267,7 +276,12 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
                           CreateMerchantAccount();
                         }
                       },
-                      child: Text('Save Details'),
+                      child: Text(
+                        'Save Details',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff27142A),
                       ),
