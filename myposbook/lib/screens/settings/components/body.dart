@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -74,10 +75,21 @@ class _SettingsBodyState extends State<SettingsBody> {
 
             // services
             settingsTitle('Services', context),
-            settingsButton(
-              'lib/assets/images/settings/backup.png',
-              'Backup',
-              context,
+            Badge(
+              shape: BadgeShape.square,
+              badgeContent: const Text(
+                'Coming Soon',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              badgeColor: Colors.blue,
+              position: BadgePosition.center(),
+              child: settingsButton(
+                'lib/assets/images/settings/backup.png',
+                'Backup',
+                context,
+              ),
             ),
             settingsButton(
               'lib/assets/images/settings/password-lock.png',
@@ -92,10 +104,12 @@ class _SettingsBodyState extends State<SettingsBody> {
 
             // others
             settingsTitle('Others', context),
+
             settingsButton(
               'lib/assets/images/settings/image 16.png',
               'Help & Support',
               context,
+              onpressed: () {},
             ),
             settingsButton(
               'lib/assets/images/settings/image 17.png',
