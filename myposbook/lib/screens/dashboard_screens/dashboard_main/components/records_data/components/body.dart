@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/records_data/components/graph.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 List<String> dropDownList = [
@@ -29,10 +30,16 @@ class _RecordDataBodyState extends State<RecordDataBody> {
     _SalesData('May', 40),
   ];
 
+  // tooltip
+  late TooltipBehavior _tooltipBehavior;
+
   @override
   Widget build(BuildContext context) {
-    final screeHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
+    final spaceHorizontal = screenWidth * 0.04;
+    final spaceVertical = screenHeight * 0.005;
 
     return SafeArea(
       child: Padding(
@@ -43,7 +50,7 @@ class _RecordDataBodyState extends State<RecordDataBody> {
           children: [
             // Heading
             SizedBox(
-              height: screeHeight * 0.12,
+              height: screenHeight * 0.12,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -56,7 +63,7 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                         'CASHOUTS',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: screeHeight * 0.025,
+                          fontSize: screenHeight * 0.025,
                         ),
                       ),
                       Text(
@@ -99,7 +106,7 @@ class _RecordDataBodyState extends State<RecordDataBody> {
             // Transactions header
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: screeHeight * 0.03,
+                vertical: screenHeight * 0.03,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,12 +119,12 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: screeHeight * 0.006,
+                      vertical: screenHeight * 0.01,
                     ),
                     child: Text(
                       '₦1,200,00.34',
                       style: TextStyle(
-                        fontSize: screeHeight * 0.035,
+                        fontSize: screenHeight * 0.035,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -128,15 +135,25 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                       style: TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,
+                        fontSize: screenHeight * 0.02,
                       ),
                       children: [
                         TextSpan(
                           text: 'vs',
-                          style: DefaultTextStyle.of(context).style,
+                          style: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenHeight * 0.02,
+                          ),
                         ),
                         TextSpan(
-                            text: ' ₦ 1,005,334',
-                            style: DefaultTextStyle.of(context).style),
+                          text: ' ₦ 1,005,334',
+                          style: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenHeight * 0.02,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -145,6 +162,7 @@ class _RecordDataBodyState extends State<RecordDataBody> {
             ),
 
             // Graph chart
+            // GraphChart(),
             Column(
               children: [
                 SfCartesianChart(
@@ -169,6 +187,8 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                 ),
               ],
             ),
+
+            // divider
             Divider(
               thickness: 2,
             ),
@@ -176,13 +196,13 @@ class _RecordDataBodyState extends State<RecordDataBody> {
             // Transaction & charges
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: screeHeight * 0.014,
+                vertical: screenHeight * 0.014,
               ),
               child: Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: screeHeight * 0.02,
+                      vertical: screenHeight * 0.02,
                     ),
                     child: Row(
                       children: [
@@ -196,9 +216,12 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                             padding: const EdgeInsets.all(12),
                             child: Image.asset(
                               'lib/assets/icons/naija-coin-cash.png',
-                              height: screeHeight * 0.045,
+                              height: screenHeight * 0.045,
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          width: spaceHorizontal,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,10 +230,18 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                               '₦ 1,200,000.34',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: screeHeight * 0.026,
+                                fontSize: screenHeight * 0.0295,
                               ),
                             ),
-                            Text('Total Transactions'),
+                            SizedBox(
+                              height: spaceVertical,
+                            ),
+                            Text(
+                              'Total Transactions',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -228,9 +259,12 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                           padding: const EdgeInsets.all(12),
                           child: Image.asset(
                             'lib/assets/icons/naija-bag.png',
-                            height: screeHeight * 0.045,
+                            height: screenHeight * 0.045,
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        width: spaceHorizontal,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,10 +273,18 @@ class _RecordDataBodyState extends State<RecordDataBody> {
                             '₦ 12,000.34',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: screeHeight * 0.026,
+                              fontSize: screenHeight * 0.0295,
                             ),
                           ),
-                          Text('Total Charges'),
+                          SizedBox(
+                            height: spaceVertical,
+                          ),
+                          Text(
+                            'Total Charges',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ],
                       )
                     ],
