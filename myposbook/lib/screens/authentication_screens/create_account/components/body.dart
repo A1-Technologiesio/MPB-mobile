@@ -177,7 +177,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       },
                       child: Text('Create Account'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xff27142A),
+                        backgroundColor: Color(
+                          0xff27142A,
+                        ),
                       ),
                     ),
                   ),
@@ -185,12 +187,14 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                     height: mediaHeight * 0.06,
                     width: double.infinity,
                     child: TextButton(
+                      child: Text('I already have an Account'),
                       onPressed: () {
                         Navigator.pushNamed(context, '/login');
                       },
-                      child: Text('I already have an Account'),
                       style: TextButton.styleFrom(
-                          elevation: 0, primary: Color(0xff726E6E)),
+                        elevation: 0,
+                        backgroundColor: Color(0xff726E6E),
+                      ),
                     ),
                   ),
 
