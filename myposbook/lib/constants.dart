@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-final APIUrlRoot = '10.0.2.2:1225';
+const APIUrlRoot = 'myposbook.com.ng';
 List<String> listOfStates = [
   'Abuja',
   'Abia',
