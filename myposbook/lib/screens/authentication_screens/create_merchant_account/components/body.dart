@@ -35,7 +35,7 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
 
   // APi data future
   Future posTerminalsList() async {
-    final url = Uri.http(APIUrlRoot, 'api/pos-terminals');
+    final url = Uri.https(APIUrlRoot, 'api/pos-terminals');
     http.Response response = await http.get(url);
     // convert list<dynamic> to List <String>
     final jsonData = jsonDecode(response.body) as List;
@@ -74,7 +74,7 @@ class _CreateMerchantAcctBodyState extends State<CreateMerchantAcctBody> {
 
     Future CreateMerchantAccount() async {
       // merchant account endpoint constructed
-      var APIURL = Uri.http(APIUrlRoot, 'api/create/merchant-account/');
+      var APIURL = Uri.https(APIUrlRoot, 'api/create/merchant-account/');
 
       // get the access token.
       final storage = await secureStorage();

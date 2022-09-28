@@ -29,7 +29,7 @@ class DashboardMainBody extends StatelessWidget {
       final accessToken = storage['access_token'];
 
       // build the URL
-      final apiURL = Uri.http(APIUrlRoot, 'api/sum/today/');
+      final apiURL = Uri.https(APIUrlRoot, 'api/sum/today/');
 
       // headers
       Map<String, String> requestHeaders = {

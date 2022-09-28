@@ -257,7 +257,7 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
 
   Future RegisterUser() async {
     // using http to create the api url
-    final APIURL = Uri.http(APIUrlRoot, 'api/sign-up/');
+    final APIURL = Uri.https(APIUrlRoot, 'api/sign-up/');
 
     Map userData = {
       'username': _username.text,
