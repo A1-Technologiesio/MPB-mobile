@@ -44,7 +44,7 @@ class _RecordFormState extends State<RecordForm> {
 
   // List of Terminals future
   Future posTerminalsList() async {
-    final url = Uri.http(APIUrlRoot, 'api/cashout/create/');
+    final url = Uri.https(APIUrlRoot, 'api/cashout/create/');
     dynamic tokenStorage = await secureStorage();
     String accessToken = tokenStorage['access_token'];
 
@@ -103,7 +103,7 @@ class _RecordFormState extends State<RecordForm> {
       final accessToken = storage['access_token'];
 
       // API
-      var constructAPIRoute = Uri.http(
+      var constructAPIRoute = Uri.https(
         APIUrlRoot,
         widget.recordRoute,
       );

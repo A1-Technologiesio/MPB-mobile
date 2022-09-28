@@ -198,7 +198,7 @@ class _SignInBodyState extends State<SignInBody> {
 
   Future CheckMerchantAcctStatus() async {
     // get request check
-    var APIURL = Uri.http(APIUrlRoot, 'api/create/merchant-account/');
+    var APIURL = Uri.https(APIUrlRoot, 'api/create/merchant-account/');
 
     dynamic token_storage = await secureStorage();
     String access_token = token_storage['access_token'];
@@ -218,7 +218,7 @@ class _SignInBodyState extends State<SignInBody> {
   }
 
   Future SignInUser() async {
-    var APIURL = Uri.http(APIUrlRoot, 'api/login/');
+    var APIURL = Uri.https(APIUrlRoot, 'api/login/');
 
     Map userData = {
       'username': _username.text,
