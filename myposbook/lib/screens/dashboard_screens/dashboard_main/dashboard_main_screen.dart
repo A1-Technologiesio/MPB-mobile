@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/body.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/cashouts_records/cashouts_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/settings/settings_main.dart';
 import 'package:myposbook/screens/welcome_screen/welcome_screen_main.dart';
 
@@ -18,7 +19,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
   Widget build(BuildContext context) {
     const pageOptions = [
       DashboardMainBody(),
-      WelcomeScreenMain(),
+      CashoutRecordsMainScreen(),
       WelcomeScreenMain(),
       SettingsMain(),
     ];
