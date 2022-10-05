@@ -7,7 +7,11 @@ import 'package:myposbook/screens/dashboard_screens/other_screens/cashouts_recor
 import 'package:http/http.dart' as http;
 
 class RecordButtonPageView extends StatefulWidget {
-  const RecordButtonPageView({Key? key}) : super(key: key);
+  final recordType;
+  const RecordButtonPageView({
+    Key? key,
+    required this.recordType,
+  }) : super(key: key);
 
   @override
   State<RecordButtonPageView> createState() => _RecordButtonPageViewState();
@@ -164,7 +168,7 @@ class _RecordButtonPageViewState extends State<RecordButtonPageView> {
               ),
             );
           },
-          future: recordForThePeriod(recordType: 'cashouts'),
+          future: recordForThePeriod(recordType: widget.recordType),
         ),
       ],
     );
