@@ -33,7 +33,9 @@ class CashoutRecordBody extends StatelessWidget {
             ),
 
             //
-            RecordButtonPageView(),
+            RecordButtonPageView(
+              recordType: 'cashouts',
+            ),
           ],
         ),
       ),
