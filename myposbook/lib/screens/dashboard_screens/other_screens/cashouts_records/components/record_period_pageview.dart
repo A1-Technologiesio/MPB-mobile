@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class RecordButtonPageView extends StatefulWidget {
   final recordType;
+  final buttonChange = false;
   const RecordButtonPageView({
     Key? key,
     required this.recordType,
@@ -31,16 +32,33 @@ class _RecordButtonPageViewState extends State<RecordButtonPageView> {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  pageController.animateToPage(
-                    0,
-                    duration: Duration(milliseconds: 350),
-                    curve: Curves.easeInCubic,
-                  );
-                },
-                child: Text('Today'),
-              ),
+              widget.buttonChange
+                  ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: brandColor,
+                      ),
+                      onPressed: () {
+                        pageController.animateToPage(
+                          0,
+                          duration: Duration(milliseconds: 350),
+                          curve: Curves.easeInCubic,
+                        );
+                      },
+                      child: Text('Today'),
+                    )
+                  : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff555555),
+                      ),
+                      onPressed: () {
+                        pageController.animateToPage(
+                          0,
+                          duration: Duration(milliseconds: 350),
+                          curve: Curves.easeInCubic,
+                        );
+                      },
+                      child: Text('Today'),
+                    ),
               SizedBox(
                 width: screenWidth * 0.015,
               ),
@@ -122,11 +140,11 @@ class _RecordButtonPageViewState extends State<RecordButtonPageView> {
                 final thisWeek = decodedJson['this_week'];
                 final thisMonth = decodedJson['this_month'];
 
-                return SizedBox(
-                  height: screenHeight * 0.8,
+                return ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: screenHeight * 2),
                   child: PageView(
                     controller: pageController,
-                    // onPageChanged: (index) => print(index),
+                    onPageChanged: (index) => print(index),
                     children: [
                       RecordAmountTransaction(
                         recordAmount: today['todays_total_amount'],
@@ -153,7 +171,7 @@ class _RecordButtonPageViewState extends State<RecordButtonPageView> {
                             ['years_total_amount'],
                         recordCharge: decodedJson['this_years']
                             ['years_total_charges'],
-                        transactions: today['transactions'],
+                        transactions: decodedJson['this_years']['transactions'],
                       ),
                     ],
                   ),
