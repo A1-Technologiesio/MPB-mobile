@@ -46,7 +46,7 @@ class CreateDepositRecordBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Create New Cashout Record',
+                      'Create New Deposit Record',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
