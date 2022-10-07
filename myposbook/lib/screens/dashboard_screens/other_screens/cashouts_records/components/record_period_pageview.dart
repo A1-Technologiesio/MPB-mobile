@@ -5,6 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/cashouts_records/components/amount_transaction_section.dart';
 import 'package:http/http.dart' as http;
+// import 'package:myposbook/screens/dashboard_screens/other_screens/shared_components/expandable_pageview.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 
 class RecordButtonPageView extends StatefulWidget {
   final recordType;
@@ -140,42 +142,46 @@ class _RecordButtonPageViewState extends State<RecordButtonPageView> {
                 final thisWeek = decodedJson['this_week'];
                 final thisMonth = decodedJson['this_month'];
 
-                return ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: screenHeight * 2),
-                  child: PageView(
-                    controller: pageController,
-                    onPageChanged: (index) => print(index),
-                    children: [
-                      RecordAmountTransaction(
-                        recordAmount: today['todays_total_amount'],
-                        recordCharge: today['todays_total_charges'],
-                        transactions: today['transactions'],
-                      ),
-                      RecordAmountTransaction(
-                        recordAmount: yesterday['yesterdays_total_amount'],
-                        recordCharge: yesterday['yesterdays_total_charges'],
-                        transactions: yesterday['transactions'],
-                      ),
-                      RecordAmountTransaction(
-                        recordAmount: thisWeek['week_total_amount'],
-                        recordCharge: thisWeek['week_total_charges'],
-                        transactions: thisWeek['transactions'],
-                      ),
-                      RecordAmountTransaction(
-                        recordAmount: thisMonth['month_total_amount'],
-                        recordCharge: thisMonth['month_total_charges'],
-                        transactions: thisMonth['transactions'],
-                      ),
-                      RecordAmountTransaction(
-                        recordAmount: decodedJson['this_years']
-                            ['years_total_amount'],
-                        recordCharge: decodedJson['this_years']
-                            ['years_total_charges'],
-                        transactions: decodedJson['this_years']['transactions'],
-                      ),
-                    ],
-                  ),
+                return ExpandablePageView(
+                  controller: pageController,
+                  children: [
+                    RecordAmountTransaction(
+                      recordAmount: today['todays_total_amount'],
+                      recordCharge: today['todays_total_charges'],
+                      transactions: today['transactions'],
+                    ),
+                    RecordAmountTransaction(
+                      recordAmount: yesterday['yesterdays_total_amount'],
+                      recordCharge: yesterday['yesterdays_total_charges'],
+                      transactions: yesterday['transactions'],
+                    ),
+                    RecordAmountTransaction(
+                      recordAmount: thisWeek['week_total_amount'],
+                      recordCharge: thisWeek['week_total_charges'],
+                      transactions: thisWeek['transactions'],
+                    ),
+                    RecordAmountTransaction(
+                      recordAmount: thisMonth['month_total_amount'],
+                      recordCharge: thisMonth['month_total_charges'],
+                      transactions: thisMonth['transactions'],
+                    ),
+                    RecordAmountTransaction(
+                      recordAmount: decodedJson['this_years']
+                          ['years_total_amount'],
+                      recordCharge: decodedJson['this_years']
+                          ['years_total_charges'],
+                      transactions: decodedJson['this_years']['transactions'],
+                    ),
+                  ],
                 );
+                // return ConstrainedBox(
+                //   constraints: BoxConstraints(maxHeight: screenHeight * 2),
+                //   child: PageView(
+                //     controller: pageController,
+                //     onPageChanged: (index) => print(index),
+                //     children: []
+                //   ),
+                // );
               }
             }
             return Center(
