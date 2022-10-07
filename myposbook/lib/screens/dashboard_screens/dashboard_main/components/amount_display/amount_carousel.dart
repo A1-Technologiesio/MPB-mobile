@@ -5,17 +5,24 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AmountCarousel extends StatelessWidget {
   dynamic cashoutAmount;
-  dynamic depositAmount;
   String cashoutCharges;
+
+  dynamic depositAmount;
   String depositCharges;
+
+  dynamic transferAmount;
+  String transferCharges;
+
   String totalCharges;
   String totalDisbursedToday;
   AmountCarousel({
     Key? key,
     required this.cashoutAmount,
-    required this.depositAmount,
     required this.cashoutCharges,
+    required this.depositAmount,
     required this.depositCharges,
+    required this.transferAmount,
+    required this.transferCharges,
     required this.totalCharges,
     required this.totalDisbursedToday,
   }) : super(key: key);
@@ -46,6 +53,13 @@ class AmountCarousel extends StatelessWidget {
                 rightSideColor: Colors.black,
               ),
               AmountDisplaySection(
+                recordTitle: 'Transfer',
+                recordAmount: transferAmount,
+                recordTotalCharge: transferCharges,
+                leftSideColor: Color(0xff8BBF9F),
+                rightSideColor: Colors.black,
+              ),
+              AmountDisplaySection(
                 recordTitle: 'Total Disbursed',
                 recordAmount: totalDisbursedToday,
                 recordTotalCharge: totalCharges,
@@ -57,7 +71,7 @@ class AmountCarousel extends StatelessWidget {
         ),
         SmoothPageIndicator(
           controller: _controller,
-          count: 3,
+          count: 4,
           axisDirection: Axis.horizontal,
           effect: ExpandingDotsEffect(activeDotColor: brandColor),
         ),
