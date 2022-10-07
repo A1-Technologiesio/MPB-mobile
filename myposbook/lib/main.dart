@@ -4,6 +4,7 @@ import 'package:myposbook/screens/authentication_screens/create_merchant_account
 import 'package:myposbook/screens/authentication_screens/sign_in/sign_in_main.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/create_records/cashout_records/cashout_main.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/create_records/deposit_records/deposit_main_screen.dart';
+import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/create_records/transfer_records/transfer_record_main.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/records_data/records_data_main_screen.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/dashboard_main_screen.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/cashouts_records/cashouts_main.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/records_data': (context) => RecordsDataMainScreen(),
         '/create_cashout': (context) => CreateCashoutMain(),
         '/create_deposit': (context) => CreateDepositRecordMain(),
+        '/create_transfer': (context) => CreateTransferRecordMain(),
 
         // View records
         '/cashout_records': (context) => CashoutRecordsMainScreen(),
