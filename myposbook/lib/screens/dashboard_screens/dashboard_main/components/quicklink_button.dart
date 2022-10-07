@@ -13,6 +13,9 @@ class QuickLinkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaHeight = MediaQuery.of(context).size.height;
+    final mediaWidth = MediaQuery.of(context).size.width;
+
     return Column(
       children: [
         Container(
@@ -34,7 +37,8 @@ class QuickLinkButton extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Color(0xff000000),
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
+            fontSize: mediaHeight * 0.018,
           ),
         )
       ],

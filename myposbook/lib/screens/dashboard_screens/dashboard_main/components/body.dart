@@ -136,13 +136,16 @@ class DashboardMainBody extends StatelessWidget {
                                 transactionTitle,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w800,
-                                  fontSize: 16,
+                                  fontSize: mediaHeight * 0.022,
                                 ),
                               ),
                               SizedBox(
                                 height: mediaHeight * 0.005,
                               ),
-                              Text(transactionDate.toString())
+                              Text(transactionDate.toString(),
+                                  style: TextStyle(
+                                    fontSize: mediaHeight * 0.02,
+                                  ))
                             ],
                           ),
                         ],
@@ -154,13 +157,16 @@ class DashboardMainBody extends StatelessWidget {
                             transactionAmount,
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
-                              fontSize: 15,
+                              fontSize: mediaHeight * 0.022,
                             ),
                           ),
                           SizedBox(
                             height: mediaHeight * 0.005,
                           ),
-                          Text(transactionCharge),
+                          Text(transactionCharge,
+                              style: TextStyle(
+                                fontSize: mediaHeight * 0.02,
+                              )),
                         ],
                       )
                     ],
@@ -223,7 +229,7 @@ class DashboardMainBody extends StatelessWidget {
                     children: [
                       // Top bar section
                       SizedBox(
-                        height: mediaHeight * 0.18,
+                        height: mediaHeight * 0.14,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -275,102 +281,121 @@ class DashboardMainBody extends StatelessWidget {
                       quicklinks section
                       */
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: mediaHeight * 0.02,
-                            horizontal: mediaWidth * 0.025),
+                        padding: EdgeInsets.only(
+                          top: mediaHeight * 0.037,
+                          bottom: mediaHeight * 0.02,
+                          left: mediaWidth * 0.025,
+                        ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Quick Links',
+                              'Quick links',
+                              textAlign: TextAlign.start,
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: mediaHeight * 0.02,
-                              ),
+                                  fontSize: mediaHeight * 0.02,
+                                  fontWeight: FontWeight.w900),
                             ),
                           ],
                         ),
                       ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       vertical: mediaHeight * 0.037,
+                      //       horizontal: mediaWidth * 0.025),
+                      //   child: Row(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       Text(
+                      //         'Quick Links',
+                      //         style: TextStyle(
+                      //           fontWeight: FontWeight.bold,
+                      //           fontSize: mediaHeight * 0.02,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
 
-                      Column(
-                        children: [
-                          // quicklinks row 1
-                          Wrap(
-                            // runAlignment: WrapAlignment.start,
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            spacing: 5,
-                            children: [
-                              // New Cashout button
-                              TextButton(
+                      SizedBox(
+                        height: mediaHeight * 0.15,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          // runAlignment: WrapAlignment.start,
+                          // crossAxisAlignment: WrapCrossAlignment.start,
+                          // spacing: 10,
+                          children: [
+                            // New Cashout button
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/create_cashout');
+                              },
+                              child: QuickLinkButton(
+                                iconColor: brandColor,
+                                buttonTitle: 'New Cashout',
+                                quickLinkIcon: Icons.upload,
+                              ),
+                            ),
+
+                            // New Deposit Button
+                            TextButton(
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                      context, '/create_cashout');
+                                      context, '/create_deposit');
                                 },
                                 child: QuickLinkButton(
-                                  iconColor: brandColor,
-                                  buttonTitle: 'New \n Cashout',
-                                  quickLinkIcon: Icons.upload,
-                                ),
+                                  iconColor: Color(0xff225560),
+                                  buttonTitle: 'New Deposit',
+                                  quickLinkIcon: Icons.download,
+                                )),
+
+                            // New TF Button
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, '/create_transfer');
+                              },
+                              child: QuickLinkButton(
+                                buttonTitle: 'New Transfer',
+                                iconColor: Color(0xff8BBF9F),
+                                quickLinkIcon: Icons.send,
                               ),
+                            ),
 
-                              // New Deposit Button
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, '/create_deposit');
-                                  },
-                                  child: QuickLinkButton(
-                                    iconColor: Color(0xff225560),
-                                    buttonTitle: 'New \n Deposit',
-                                    quickLinkIcon: Icons.download,
-                                  )),
+                            // Your Record Data
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/records_data');
+                              },
+                              child: QuickLinkButton(
+                                iconColor: Color(0xff000000),
+                                buttonTitle: 'Records Data',
+                                quickLinkIcon: Icons.auto_graph,
+                              ),
+                            ),
 
-                              // New TF Button
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, '/create_transfer');
-                                },
+                            // View POS Terminals
+                            TextButton(
+                                onPressed: () {},
                                 child: QuickLinkButton(
-                                  buttonTitle: 'New \n Transfer',
-                                  iconColor: Color(0xff8BBF9F),
-                                  quickLinkIcon: Icons.send,
-                                ),
-                              ),
+                                  iconColor: Color(0xffE3655B),
+                                  buttonTitle: 'POS Terminals',
+                                  quickLinkIcon: Icons.phone_android_rounded,
+                                )),
 
-                              // Your Record Data
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/records_data');
-                                },
-                                child: QuickLinkButton(
-                                  iconColor: Color(0xff000000),
-                                  buttonTitle: 'Records \n Data',
-                                  quickLinkIcon: Icons.auto_graph,
-                                ),
-                              ),
-
-                              // View POS Terminals
-                              TextButton(
-                                  onPressed: () {},
-                                  child: QuickLinkButton(
-                                    iconColor: Color(0xffE3655B),
-                                    buttonTitle: 'POS \n Terminals',
-                                    quickLinkIcon: Icons.phone_android_rounded,
-                                  )),
-
-                              // apply for new POS Terminal
-                            ],
-                          )
-
-                          // quicklinks row 2
-                        ],
+                            // apply for new POS Terminal
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.013,
                       ),
 
                       // Transactions table
+
                       Padding(
                         padding: EdgeInsets.only(
-                          top: mediaHeight * 0.02,
+                          top: mediaHeight * 0.037,
                           left: mediaWidth * 0.025,
                         ),
                         child: Row(
@@ -410,16 +435,19 @@ class DashboardMainBody extends StatelessWidget {
 
                       // when the transaction has data
                       else
-                        Column(
-                          children: [
-                            for (var item in transactions)
-                              transactionItem(
-                                item['title'],
-                                item['date_time'],
-                                item['amount'],
-                                item['charge'],
-                              )
-                          ],
+                        Padding(
+                          padding: EdgeInsets.only(bottom: mediaHeight * 0.025),
+                          child: Column(
+                            children: [
+                              for (var item in transactions)
+                                transactionItem(
+                                  item['title'],
+                                  item['date_time'],
+                                  item['amount'],
+                                  item['charge'],
+                                )
+                            ],
+                          ),
                         ),
                     ],
                   ),
