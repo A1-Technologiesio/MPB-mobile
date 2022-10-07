@@ -198,13 +198,18 @@ class DashboardMainBody extends StatelessWidget {
             // Amount and charges Data
             final cashoutAmount =
                 jsonDecoding['cashout_record_sum']['amount_sum'].toString();
-            final depositAmount =
-                jsonDecoding['deposit_record_sum']['amount_sum'].toString();
-
             final cashoutCharges =
                 jsonDecoding['cashout_record_sum']['charge_sum'].toString();
+
+            final depositAmount =
+                jsonDecoding['deposit_record_sum']['amount_sum'].toString();
             final depositCharges =
                 jsonDecoding['deposit_record_sum']['charge_sum'].toString();
+
+            final transferAmount =
+                jsonDecoding['transfer_record_sum']['amount_sum'].toString();
+            final transferCharges =
+                jsonDecoding['transfer_record_sum']['charge_sum'].toString();
 
             final totalChargesToday = jsonDecoding['todays_profit'].toString();
             final disbursedToday = jsonDecoding['total_disbursed'].toString();
@@ -260,6 +265,8 @@ class DashboardMainBody extends StatelessWidget {
                         depositAmount: depositAmount,
                         cashoutCharges: cashoutCharges,
                         depositCharges: depositCharges,
+                        transferAmount: transferAmount,
+                        transferCharges: transferCharges,
                         totalDisbursedToday: disbursedToday,
                         totalCharges: totalChargesToday,
                       ),
@@ -288,8 +295,10 @@ class DashboardMainBody extends StatelessWidget {
                       Column(
                         children: [
                           // quicklinks row 1
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          Wrap(
+                            // runAlignment: WrapAlignment.start,
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            spacing: 5,
                             children: [
                               // New Cashout button
                               TextButton(
@@ -315,6 +324,19 @@ class DashboardMainBody extends StatelessWidget {
                                     buttonTitle: 'New \n Deposit',
                                     quickLinkIcon: Icons.download,
                                   )),
+
+                              // New TF Button
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, '/create_transfer');
+                                },
+                                child: QuickLinkButton(
+                                  buttonTitle: 'New \n Transfer',
+                                  iconColor: Color(0xff8BBF9F),
+                                  quickLinkIcon: Icons.send,
+                                ),
+                              ),
 
                               // Your Record Data
                               TextButton(
