@@ -5,6 +5,7 @@ import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/amount_display/amount_carousel.dart';
 import 'package:http/http.dart' as http;
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/quicklink_button.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/shared_components/transaction_details/transactions_details.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -91,6 +92,7 @@ class DashboardMainBody extends StatelessWidget {
       transactionDate,
       transactionAmount,
       transactionCharge,
+      transactionID,
     ) =>
         Padding(
           padding: EdgeInsets.symmetric(
@@ -109,69 +111,80 @@ class DashboardMainBody extends StatelessWidget {
                 vertical: mediaHeight * 0.015,
                 horizontal: mediaWidth * 0.02,
               ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: mediaHeight * 0.05,
-                            width: mediaWidth * 0.09,
-                            decoration: BoxDecoration(
-                              color: Color(0xff386FA4),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Icon(
-                              Icons.savings,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(width: mediaWidth * 0.04),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                transactionTitle,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: mediaHeight * 0.022,
-                                ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TransactionDetails(transactionID: transactionID),
+                    ),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: mediaHeight * 0.05,
+                              width: mediaWidth * 0.09,
+                              decoration: BoxDecoration(
+                                color: Color(0xff386FA4),
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              SizedBox(
-                                height: mediaHeight * 0.005,
+                              child: Icon(
+                                Icons.savings,
+                                color: Colors.white,
                               ),
-                              Text(transactionDate.toString(),
+                            ),
+                            SizedBox(width: mediaWidth * 0.04),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  transactionTitle,
                                   style: TextStyle(
-                                    fontSize: mediaHeight * 0.02,
-                                  ))
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            transactionAmount,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: mediaHeight * 0.022,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: mediaHeight * 0.022,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: mediaHeight * 0.005,
+                                ),
+                                Text(transactionDate.toString(),
+                                    style: TextStyle(
+                                      fontSize: mediaHeight * 0.02,
+                                    ))
+                              ],
                             ),
-                          ),
-                          SizedBox(
-                            height: mediaHeight * 0.005,
-                          ),
-                          Text(transactionCharge,
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              transactionAmount,
                               style: TextStyle(
-                                fontSize: mediaHeight * 0.02,
-                              )),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
+                                fontWeight: FontWeight.w800,
+                                fontSize: mediaHeight * 0.022,
+                              ),
+                            ),
+                            SizedBox(
+                              height: mediaHeight * 0.005,
+                            ),
+                            Text(transactionCharge,
+                                style: TextStyle(
+                                  fontSize: mediaHeight * 0.02,
+                                )),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -395,7 +408,7 @@ class DashboardMainBody extends StatelessWidget {
 
                       Padding(
                         padding: EdgeInsets.only(
-                          top: mediaHeight * 0.037,
+                          // top: mediaHeight * 0.037,
                           left: mediaWidth * 0.025,
                         ),
                         child: Row(
@@ -441,11 +454,11 @@ class DashboardMainBody extends StatelessWidget {
                             children: [
                               for (var item in transactions)
                                 transactionItem(
-                                  item['title'],
-                                  item['date_time'],
-                                  item['amount'],
-                                  item['charge'],
-                                )
+                                    item['title'],
+                                    item['date_time'],
+                                    item['amount'],
+                                    item['charge'],
+                                    item['transaction_id'])
                             ],
                           ),
                         ),

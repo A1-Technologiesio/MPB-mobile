@@ -8,6 +8,7 @@ import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/cr
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/records_data/records_data_main_screen.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/dashboard_main_screen.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/cashouts_records/cashouts_main.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/shared_components/transaction_details/transactions_details.dart';
 import 'package:myposbook/screens/welcome_screen/welcome_screen_main.dart';
 
 void main() {
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/create_cashout': (context) => CreateCashoutMain(),
         '/create_deposit': (context) => CreateDepositRecordMain(),
         '/create_transfer': (context) => CreateTransferRecordMain(),
+        '/transaction_details': (context) => TransactionDetails(),
 
         // View records
         '/cashout_records': (context) => CashoutRecordsMainScreen(),
