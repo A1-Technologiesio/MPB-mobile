@@ -65,6 +65,8 @@ class RecordAmountTransaction extends StatelessWidget {
                   transaction['date_time'],
                   transaction['amount'].toString(),
                   transaction['charge'].toString(),
+                  context,
+                  transaction['transaction_id'],
                   mediaHeight: screenHeight,
                   mediaWidth: screenWidth,
                 )

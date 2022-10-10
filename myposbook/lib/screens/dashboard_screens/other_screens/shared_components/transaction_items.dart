@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'transaction_details/transactions_details.dart';
+
 transactionItem(
   transactionTitle,
   transactionDate,
   transactionAmount,
-  transactionCharge, {
+  transactionCharge,
+  context,
+  transactionID, {
   mediaHeight,
   mediaWidth,
 }) =>
@@ -25,63 +29,80 @@ transactionItem(
             vertical: mediaHeight * 0.015,
             horizontal: mediaWidth * 0.02,
           ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: mediaHeight * 0.05,
-                        width: mediaWidth * 0.09,
-                        decoration: BoxDecoration(
-                          color: Color(0xff386FA4),
-                          borderRadius: BorderRadius.circular(25),
+          child: TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      TransactionDetails(transactionID: transactionID),
+                ),
+              );
+            },
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: mediaHeight * 0.05,
+                          width: mediaWidth * 0.09,
+                          decoration: BoxDecoration(
+                            color: Color(0xff386FA4),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Icon(
+                            Icons.savings,
+                            color: Colors.white,
+                          ),
                         ),
-                        child: Icon(
-                          Icons.savings,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(width: mediaWidth * 0.04),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transactionTitle,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 16,
+                        SizedBox(width: mediaWidth * 0.04),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              transactionTitle,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: mediaHeight * 0.022,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: mediaHeight * 0.005,
-                          ),
-                          Text(transactionDate.toString())
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        transactionAmount,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 15,
+                            SizedBox(
+                              height: mediaHeight * 0.005,
+                            ),
+                            Text(transactionDate.toString(),
+                                style: TextStyle(
+                                  fontSize: mediaHeight * 0.02,
+                                ))
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: mediaHeight * 0.005,
-                      ),
-                      Text(transactionCharge),
-                    ],
-                  )
-                ],
-              ),
-            ],
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          transactionAmount,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: mediaHeight * 0.022,
+                          ),
+                        ),
+                        SizedBox(
+                          height: mediaHeight * 0.005,
+                        ),
+                        Text(transactionCharge,
+                            style: TextStyle(
+                              fontSize: mediaHeight * 0.02,
+                            )),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
