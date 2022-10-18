@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
+import 'package:myposbook/screens/coming_soon/coming_soon_main.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/amount_display/amount_carousel.dart';
 import 'package:http/http.dart' as http;
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/quicklink_button.dart';
@@ -61,19 +62,6 @@ class DashboardMainBody extends StatelessWidget {
       return response.body;
     }
 
-    // // dashboard data
-    // dashboardData() async {
-    //   final response = await DashboardResponse();
-    //   print(response);
-    // }
-
-    // dashboardData();
-
-    // final bodyResponse = DashboardResponse.;
-    // print(bodyResponse);
-    // if (dashboardResponse.statusCode == 401) {
-    //   print('');
-    // }
     Padding greetingDataPadding(String statement) => Padding(
           padding: EdgeInsets.symmetric(
             vertical: mediaHeight * 0.01,
@@ -189,7 +177,6 @@ class DashboardMainBody extends StatelessWidget {
             ),
           ),
         );
-
     return FutureBuilder(
       builder: (ctx, snapshot) {
         // if the connection is done
@@ -378,7 +365,17 @@ class DashboardMainBody extends StatelessWidget {
                             // Your Record Data
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/records_data');
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ComingSoonMain(
+                                              header: 'Records Data',
+                                              supportingText:
+                                                  'View your records in an easy to understand \n and interpret charts, So you visualize your \n businesses position anytime.',
+                                              imagePath:
+                                                  'lib/assets/images/transactions.png',
+                                            )));
+                                // Navigator.pushNamed(context, '/records_data');
                               },
                               child: QuickLinkButton(
                                 iconColor: Color(0xff000000),
@@ -389,7 +386,18 @@ class DashboardMainBody extends StatelessWidget {
 
                             // View POS Terminals
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ComingSoonMain(
+                                                imagePath:
+                                                    'lib/assets/images/pos-machine.png',
+                                                header: 'POS Terminals',
+                                                supportingText:
+                                                    'View your records in an easy to understand \n and interpret charts, So you visualize your \n businesses position anytime.',
+                                              )));
+                                },
                                 child: QuickLinkButton(
                                   iconColor: Color(0xffE3655B),
                                   buttonTitle: 'POS Terminals',
