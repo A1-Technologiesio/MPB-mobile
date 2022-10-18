@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myposbook/constants.dart';
+import 'package:myposbook/screens/coming_soon/coming_soon_main.dart';
 
 class SettingsBody extends StatefulWidget {
   const SettingsBody({Key? key}) : super(key: key);
@@ -26,11 +27,8 @@ class _SettingsBodyState extends State<SettingsBody> {
           children: [
             // account section
             settingsTitle('Account', context),
-            settingsButton(
-              'lib/assets/images/settings/profile.png',
-              'Profile Settings',
-              context,
-            ),
+            settingsButton('lib/assets/images/settings/profile.png',
+                'Profile Settings', context, null),
 
             TextButton(
               // switch
@@ -71,6 +69,7 @@ class _SettingsBodyState extends State<SettingsBody> {
               'lib/assets/images/settings/password-lock.png',
               'Change Password',
               context,
+              null,
             ),
 
             // services
@@ -89,18 +88,36 @@ class _SettingsBodyState extends State<SettingsBody> {
                 'lib/assets/images/settings/backup.png',
                 'Monthly Backups',
                 context,
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ComingSoonMain(
+                      header: 'Backups & Reports',
+                      supportingText:
+                          'View your records in an easy to understand \n and interpret charts, So you visualize your \n businesses position anytime.',
+                      imagePath: 'lib/assets/images/backups.png',
+                    ),
+                  ),
+                ),
               ),
             ),
             settingsButton(
-              'lib/assets/images/settings/password-lock.png',
-              'Branch Accounts',
-              context,
-            ),
-            settingsButton(
-              'lib/assets/images/settings/subscriptions.png',
-              'Subscriptions',
-              context,
-            ),
+                'lib/assets/images/settings/password-lock.png',
+                'Branch Accounts',
+                context,
+                () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ComingSoonMain(
+                          header: 'Branch Accounts',
+                          supportingText:
+                              'Save time by getting your records done for you \n Get the records from your branches in One place \n Just issue out the Login info and they do it for you.',
+                          imagePath: 'lib/assets/images/save-time.png',
+                        ),
+                      ),
+                    )),
+            settingsButton('lib/assets/images/settings/subscriptions.png',
+                'Subscriptions', context, null),
 
             // others
             settingsTitle('Others', context),
@@ -109,13 +126,10 @@ class _SettingsBodyState extends State<SettingsBody> {
               'lib/assets/images/settings/image 16.png',
               'Help & Support',
               context,
-              onpressed: () {},
+              () {},
             ),
-            settingsButton(
-              'lib/assets/images/settings/image 17.png',
-              'About My POS Book',
-              context,
-            ),
+            settingsButton('lib/assets/images/settings/image 17.png',
+                'About My POS Book', context, null),
             SizedBox(
               height: screenHeight * 0.03,
             ),
@@ -183,8 +197,8 @@ class _SettingsBodyState extends State<SettingsBody> {
 }
 
 // settings Button
-TextButton settingsButton(String imagePath, String buttonTitle, context,
-    {onpressed: null}) {
+TextButton settingsButton(
+    String imagePath, String buttonTitle, context, onpressed) {
   final screenHeight = MediaQuery.of(context).size.height;
   final screenWidth = MediaQuery.of(context).size.width;
   return TextButton(
