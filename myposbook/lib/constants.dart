@@ -43,6 +43,7 @@ List<String> listOfStates = [
 ];
 
 const brandColor = Color(0xff27142A);
+const formBgColor = Color(0xffF5F5F5);
 
 secureStorage() async {
   const storage = FlutterSecureStorage();
@@ -50,4 +51,26 @@ secureStorage() async {
   Map<String, String> access_token = await storage.readAll();
   return access_token;
   // _token = access_token;
+}
+
+appBarReusable(title, context) {
+  return AppBar(
+    title: Text(
+      title,
+      style: TextStyle(
+        color: brandColor,
+      ),
+    ),
+    backgroundColor: Colors.grey[50],
+    leading: IconButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      icon: Icon(
+        Icons.arrow_back,
+        color: brandColor,
+      ),
+    ),
+    elevation: 0.0,
+  );
 }
