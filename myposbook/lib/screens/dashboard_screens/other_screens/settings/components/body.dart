@@ -4,6 +4,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/coming_soon/coming_soon_main.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/about_mpb/about_mpb_main.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/change_password/change_password_main.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/help_and_support/help_and_support_main.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/profile_settings/profile_settings_main.dart';
 
 class SettingsBody extends StatefulWidget {
   const SettingsBody({Key? key}) : super(key: key);
@@ -27,8 +31,19 @@ class _SettingsBodyState extends State<SettingsBody> {
           children: [
             // account section
             settingsTitle('Account', context),
-            settingsButton('lib/assets/images/settings/profile.png',
-                'Profile Settings', context, null),
+            settingsButton(
+              'lib/assets/images/settings/profile.png',
+              'Profile Settings',
+              context,
+              () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileSettingsMain(),
+                  ),
+                )
+              },
+            ),
 
             TextButton(
               // switch
@@ -69,7 +84,12 @@ class _SettingsBodyState extends State<SettingsBody> {
               'lib/assets/images/settings/password-lock.png',
               'Change Password',
               context,
-              null,
+              () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangePasswordMain()));
+              },
             ),
 
             // services
@@ -126,10 +146,24 @@ class _SettingsBodyState extends State<SettingsBody> {
               'lib/assets/images/settings/image 16.png',
               'Help & Support',
               context,
-              () {},
+              () => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HelpAndSupportMain()))
+              },
             ),
-            settingsButton('lib/assets/images/settings/image 17.png',
-                'About My POS Book', context, null),
+            settingsButton(
+              'lib/assets/images/settings/image 17.png',
+              'About My POS Book',
+              context,
+              () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutMPBMain()),
+                )
+              },
+            ),
             SizedBox(
               height: screenHeight * 0.03,
             ),
