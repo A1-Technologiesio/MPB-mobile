@@ -259,7 +259,7 @@ class _SignInBodyState extends State<SignInBody> {
         ScaffoldMessenger.of(context).showSnackBar(loginSnackbar);
 
         // call the checkMerchantAcctStatus fn and run the check
-        //to see if the merchant Acct
+        //to see if the merchant Acct has been created.
         var checkMerchantStatus = await CheckMerchantAcctStatus();
         if (checkMerchantStatus.statusCode == 200) {
           Navigator.popUntil(context, (route) => route.isFirst);

@@ -6,7 +6,9 @@ import 'package:myposbook/screens/coming_soon/coming_soon_main.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/amount_display/amount_carousel.dart';
 import 'package:http/http.dart' as http;
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/quicklink_button.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/plan_expired/plan_expired_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/shared_components/transaction_details/transactions_details.dart';
+import 'package:myposbook/screens/welcome_screen/welcome_screen_main.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -57,6 +59,10 @@ class DashboardMainBody extends StatelessWidget {
         );
         ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
         Navigator.pushNamed(context, '/login');
+      } else if (response.statusCode == 403) {
+        Navigator.popUntil(context, ModalRoute.withName('/welcome_screen'));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => PlanExpiredMain()));
       }
 
       return response.body;
