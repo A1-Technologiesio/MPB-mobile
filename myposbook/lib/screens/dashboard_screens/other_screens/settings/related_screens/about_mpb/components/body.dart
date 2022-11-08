@@ -35,7 +35,7 @@ class AboutMPBBody extends StatelessWidget {
             // 1
             aboutHeading(
               'Keep Track of your records in one place with simple to use steps',
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+              "Have all of your POS Business cashouts, Deposit & Transfer calculated for you in seconds, just input Amount, Charge & The terminal of choice, We sum all your records instantly both new and previous.",
               context,
             ),
 
@@ -44,7 +44,7 @@ class AboutMPBBody extends StatelessWidget {
             // 2
             aboutHeading(
               'Save Records More efficiently and Know your business State on time',
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+              "Gone are the days when you will have to wait till the end of the day to calculate your records. Just input amount, charge and select a terminal and Your records are kept instantly.",
               context,
             ),
             const Divider(),
@@ -52,14 +52,16 @@ class AboutMPBBody extends StatelessWidget {
             // 3
             aboutHeading(
               'Let your Other branches keep your records like normal, but with software.',
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+              "Coming Soon",
               context,
             ),
             const Divider(),
 
             // go back button
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: const Text('I Understand'),
               style: ElevatedButton.styleFrom(),
             ),
