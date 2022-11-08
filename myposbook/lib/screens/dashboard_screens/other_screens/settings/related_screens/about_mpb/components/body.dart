@@ -51,8 +51,8 @@ class AboutMPBBody extends StatelessWidget {
 
             // 3
             aboutHeading(
-              'Let your Other branches keep your records like normal, but with software.',
-              "Coming Soon",
+              ' Let your Other branches keep your records like normal, but with software.(Coming Soon)',
+              "Let your workers create the records from sub accounts and watch the records and profits stored while you're not there all on the app",
               context,
             ),
             const Divider(),
