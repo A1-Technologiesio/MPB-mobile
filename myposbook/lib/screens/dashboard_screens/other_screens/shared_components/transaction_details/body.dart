@@ -102,7 +102,7 @@ class TransactionDetailsBody extends StatelessWidget {
                             Divider(),
                             transactionDetailData(
                               'Actual Profits',
-                              '₦ ${decodeJson['charge']}',
+                              '₦ ${decodeJson['true_profit']}',
                             ),
                             Divider(),
                             transactionDetailData(
