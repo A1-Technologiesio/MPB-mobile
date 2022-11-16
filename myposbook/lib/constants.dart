@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const APIUrlRoot = 'myposbook.com.ng';
 List<String> listOfStates = [
@@ -74,3 +76,44 @@ appBarReusable(title, context) {
     elevation: 0.0,
   );
 }
+
+// URL Launcher
+
+Future<void> launchInBrowser(Uri url) async {
+  // Launch url in browser
+  if (!await launchUrl(
+    url,
+    mode: LaunchMode.externalApplication,
+  )) {
+    throw 'Could not launch $url';
+  }
+}
+
+// launching the actual route for browser
+Uri toLaunch(String host, String path) =>
+    Uri(scheme: 'https', host: host, path: path);
+
+// launcher for email
+// String? encodeQueryParameters(Map<String, String> params){
+//   return params.entries.map((MapEntry<String, String> e) => '${}').join(&))
+// }
+
+String? encodeQueryParameters(Map<String, String> params) {
+  return params.entries
+      .map((MapEntry<String, String> e) =>
+          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+      .join('&');
+}
+
+final Uri emailLaunchUri = Uri(
+  scheme: 'mailto',
+  path: 'support@myposbook.com.ng',
+  query: encodeQueryParameters(<String, String>{
+    'subject': '',
+  }),
+);
+
+final Uri telLaunchUri = Uri(
+  scheme: 'tel',
+  path: '09033551708',
+);
