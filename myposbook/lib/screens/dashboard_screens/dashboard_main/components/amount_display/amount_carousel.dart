@@ -39,7 +39,7 @@ class AmountCarousel extends StatelessWidget {
             controller: _controller,
             children: [
               AmountDisplaySection(
-                recordTitle: 'Cashout',
+                recordTitle: 'Withdrawal/Cashout',
                 recordAmount: cashoutAmount,
                 recordTotalCharge: cashoutCharges,
                 leftSideColor: Color(0xff27142A),
