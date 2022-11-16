@@ -17,7 +17,11 @@ class _SignInBodyState extends State<SignInBody> {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
+  // form key
   final _formKey = GlobalKey<FormState>();
+
+  // password visibility
+  var _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,13 +84,25 @@ class _SignInBodyState extends State<SignInBody> {
                   // password
                   TextFormField(
                     controller: _password,
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Password',
-                      fillColor: formBgColor,
-                      filled: true,
-                    ),
+                        border: InputBorder.none,
+                        hintText: 'Password',
+                        fillColor: formBgColor,
+                        filled: true,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: brandColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        )),
                   ),
 
                   SizedBox(
