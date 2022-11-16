@@ -23,8 +23,12 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
+  // form key
   final _formKey = GlobalKey<FormState>();
 
+  // password visibility
+  var _confirmPasswordVisibility = false;
+  var _passwordVisibility = false;
   @override
   Widget build(BuildContext context) {
     // definition of variables
@@ -140,12 +144,25 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                   // password
                   TextFormField(
                     controller: _password,
-                    obscureText: true,
+                    obscureText: _passwordVisibility,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Password',
                       fillColor: formBgColor,
                       filled: true,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisibility
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: brandColor,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisibility = !_passwordVisibility;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   spaceBetweenFormFIelds,
@@ -153,12 +170,26 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                   // confirm password
                   TextFormField(
                       controller: _confirmPassword,
-                      obscureText: true,
+                      obscureText: _confirmPasswordVisibility,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Confirm Password',
                         fillColor: formBgColor,
                         filled: true,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _confirmPasswordVisibility
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: brandColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _confirmPasswordVisibility =
+                                  !_confirmPasswordVisibility;
+                            });
+                          },
+                        ),
                       ),
                       validator: (value) =>
                           _password.text == value ? null : 'Password Mismatch'),
@@ -183,17 +214,27 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: mediaHeight * 0.06,
-                    width: double.infinity,
-                    child: TextButton(
-                      child: Text('I already have an Account'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/login');
-                      },
-                      style: TextButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: Color(0xff726E6E),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: mediaHeight * 0.015,
+                    ),
+                    child: SizedBox(
+                      height: mediaHeight * 0.06,
+                      width: double.infinity,
+                      child: TextButton(
+                        child: Text(
+                          'I already have an Account',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        style: TextButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Color(0xff726E6E),
+                        ),
                       ),
                     ),
                   ),
