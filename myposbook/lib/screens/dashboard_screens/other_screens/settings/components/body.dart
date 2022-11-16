@@ -8,6 +8,7 @@ import 'package:myposbook/screens/dashboard_screens/other_screens/settings/relat
 import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/change_password/change_password_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/help_and_support/help_and_support_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/profile_settings/profile_settings_main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsBody extends StatefulWidget {
   const SettingsBody({Key? key}) : super(key: key);
@@ -208,7 +209,9 @@ class _SettingsBodyState extends State<SettingsBody> {
               children: [
                 // facebook Icon
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    launchInBrowser(toLaunch('facebook.com', 'myposbook/'));
+                  },
                   icon: const FaIcon(
                     FontAwesomeIcons.facebook,
                   ),
@@ -216,7 +219,9 @@ class _SettingsBodyState extends State<SettingsBody> {
 
                 // instagram Icon
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    launchInBrowser(toLaunch('instagram.com', 'myposbook/'));
+                  },
                   icon: const FaIcon(
                     FontAwesomeIcons.instagram,
                   ),
