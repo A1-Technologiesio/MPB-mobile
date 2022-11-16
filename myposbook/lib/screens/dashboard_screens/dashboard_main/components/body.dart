@@ -211,19 +211,19 @@ class DashboardMainBody extends StatelessWidget {
             final cashoutAmount =
                 jsonDecoding['cashout_record_sum']['amount_sum'].toString();
             final cashoutCharges =
-                jsonDecoding['cashout_record_sum']['charge_sum'].toString();
+                jsonDecoding['cashout_record_sum']['profit_sum'].toString();
 
             final depositAmount =
                 jsonDecoding['deposit_record_sum']['amount_sum'].toString();
             final depositCharges =
-                jsonDecoding['deposit_record_sum']['charge_sum'].toString();
+                jsonDecoding['deposit_record_sum']['profit_sum'].toString();
 
             final transferAmount =
                 jsonDecoding['transfer_record_sum']['amount_sum'].toString();
             final transferCharges =
-                jsonDecoding['transfer_record_sum']['charge_sum'].toString();
+                jsonDecoding['transfer_record_sum']['profit_sum'].toString();
 
-            final totalChargesToday = jsonDecoding['todays_profit'].toString();
+            final totalChargesToday = jsonDecoding['actual_profit'].toString();
             final disbursedToday = jsonDecoding['total_disbursed'].toString();
 
             // Main dashboard Page
