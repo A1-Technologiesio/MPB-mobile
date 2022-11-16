@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myposbook/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HelpAndSupportBody extends StatelessWidget {
   const HelpAndSupportBody({Key? key}) : super(key: key);
@@ -13,10 +14,32 @@ class HelpAndSupportBody extends StatelessWidget {
         ),
         child: ListView(
           children: [
-            SupportButton('Get Support from Facebook', context, () {}),
-            SupportButton('Get Support from Instagram', context, () {}),
-            SupportButton('Get Support via Email', context, () {}),
-            SupportButton('Get Support from Phone', context, () {}),
+            SupportButton(
+              'Get Support from Facebook',
+              context,
+              () async {
+                launchInBrowser(
+                  toLaunch('facebook.com', 'myposbook/'),
+                );
+              },
+            ),
+            SupportButton(
+              'Get Support from Instagram',
+              context,
+              () async {
+                launchInBrowser(toLaunch('instagram.com', 'myposbook/'));
+              },
+            ),
+            SupportButton('Get Support via Email', context, () {
+              launchUrl(emailLaunchUri);
+            }),
+            SupportButton(
+              'Get Support from Phone',
+              context,
+              () {
+                launchUrl(telLaunchUri);
+              },
+            ),
           ],
         ),
       ),
