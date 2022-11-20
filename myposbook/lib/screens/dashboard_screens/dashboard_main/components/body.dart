@@ -5,11 +5,10 @@ import 'package:myposbook/constants.dart';
 import 'package:myposbook/screens/coming_soon/coming_soon_main.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/amount_display/amount_carousel.dart';
 import 'package:http/http.dart' as http;
+import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/pos_terminals/pos_terminal_main.dart';
 import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/quicklink_button.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/plan_expired/plan_expired_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/shared_components/transaction_details/transactions_details.dart';
-import 'package:myposbook/screens/welcome_screen/welcome_screen_main.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DashboardMainBody extends StatelessWidget {
@@ -21,6 +20,9 @@ class DashboardMainBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
+
+    // amount controller
+    final TextEditingController amountController = TextEditingController();
 
     // Greeting and Plan Heading
     final greetingHeadingStyle =
@@ -68,6 +70,51 @@ class DashboardMainBody extends StatelessWidget {
       return response.body;
     }
 
+    // create Todays Capital
+    Future createTodaysCapital() async {
+      // merchant account endpoint constructed
+      var APIURL = Uri.https(APIUrlRoot, 'api/create-working-capital/');
+
+      // get the access token.
+      final storage = await secureStorage();
+      final accessToken = storage['access_token'];
+
+      // user body and authorisation
+      Map userData = {
+        'amount': amountController.text,
+      };
+
+      Map<String, String> requestHeaders = {
+        // 'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      };
+
+      http.Response response = await http.post(
+        APIURL,
+        body: userData,
+        headers: requestHeaders,
+      );
+
+      if (response.statusCode == 201) {
+        // Navigator.pushReplacement(context, newRoute)
+        const todaysCashSnackbar = SnackBar(
+          content: Text('Your Capital for the day has been saved..'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(todaysCashSnackbar);
+      }
+      // on unauthorized error
+      else if (response.statusCode == 401) {
+        // where the login credentials provided a 401 error
+        const errorSnackBar = SnackBar(
+          content:
+              Text('Oops, there was an error, Check your username or password'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+        Navigator.pushNamed(context, '/login');
+      }
+    }
+
     Padding greetingDataPadding(String statement) => Padding(
           padding: EdgeInsets.symmetric(
             vertical: mediaHeight * 0.01,
@@ -75,7 +122,9 @@ class DashboardMainBody extends StatelessWidget {
           child: Text(
             statement,
             style: TextStyle(
-              fontWeight: FontWeight.w300,
+              // fontWeight: FontWeight.w300,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[800],
               fontSize: mediaHeight * 0.02,
             ),
           ),
@@ -183,6 +232,7 @@ class DashboardMainBody extends StatelessWidget {
             ),
           ),
         );
+
     return FutureBuilder(
       builder: (ctx, snapshot) {
         // if the connection is done
@@ -226,6 +276,8 @@ class DashboardMainBody extends StatelessWidget {
             final totalChargesToday = jsonDecoding['actual_profit'].toString();
             final disbursedToday = jsonDecoding['total_disbursed'].toString();
 
+            final todays_capital = jsonDecoding['working_capital'].toString();
+
             // Main dashboard Page
             return SafeArea(
               child: Padding(
@@ -256,21 +308,190 @@ class DashboardMainBody extends StatelessWidget {
 
                                 // Right Column
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      'My POS Book Plan',
-                                      style: greetingHeadingStyle,
-                                    ),
-                                    greetingDataPadding('Free Plan'),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.55,
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(25.0),
+                                                  topRight:
+                                                      Radius.circular(25.0),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: mediaWidth * 0.04,
+                                                ),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      height:
+                                                          mediaHeight * 0.05,
+                                                    ),
+                                                    Text(
+                                                      'Input Amount for Today',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize:
+                                                              mediaHeight *
+                                                                  0.025),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                          mediaHeight * 0.01,
+                                                    ),
+                                                    Text(
+                                                      'Use this to know how much will be used for todays transactions. We will Calculate todays profits from this amount',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                          mediaHeight * 0.04,
+                                                    ),
+                                                    Form(
+                                                      child: Column(
+                                                        children: [
+                                                          TextFormField(
+                                                            controller:
+                                                                amountController,
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              hintText:
+                                                                  'Enter Amount',
+                                                              fillColor:
+                                                                  formBgColor,
+                                                              filled: true,
+                                                              border:
+                                                                  InputBorder
+                                                                      .none,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height:
+                                                                mediaHeight *
+                                                                    0.01,
+                                                          ),
+                                                          // button
+                                                          SizedBox(
+                                                            width:
+                                                                double.infinity,
+                                                            height:
+                                                                mediaHeight *
+                                                                    0.06,
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+
+                                                                createTodaysCapital();
+                                                                Navigator.pushNamed(
+                                                                    context,
+                                                                    '/dashboard_main');
+                                                              },
+                                                              child:
+                                                                  Text('Save'),
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                backgroundColor:
+                                                                    brandColor,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text('Add Todays Cash'),
+                                          SizedBox(
+                                            width: mediaWidth * 0.03,
+                                          ),
+                                          Icon(
+                                            Icons.add_circle,
+                                          )
+                                        ],
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: brandColor,
+                                      ),
+                                    )
                                   ],
-                                ),
+                                )
+                                // Column(
+                                //   crossAxisAlignment: CrossAxisAlignment.end,
+                                //   children: [
+                                //     Text(
+                                //       'My POS Book Plan',
+                                //       style: greetingHeadingStyle,
+                                //     ),
+                                //     greetingDataPadding('Free Plan'),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ],
                         ),
                       ),
-
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: mediaHeight * 0.025,
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: mediaHeight * 0.015,
+                              ),
+                              Text(
+                                'Your Capital',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: mediaHeight * 0.008,
+                              ),
+                              Text(
+                                '₦ $todays_capital',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800],
+                                  fontSize: mediaHeight * 0.032,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       // Record display section
                       AmountCarousel(
                         cashoutAmount: cashoutAmount,
@@ -391,24 +612,40 @@ class DashboardMainBody extends StatelessWidget {
                             ),
 
                             // View POS Terminals
+                            // TextButton(
+                            //   onPressed: () {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) => ComingSoonMain(
+                            //                   imagePath:
+                            //                       'lib/assets/images/pos-machine.png',
+                            //                   header: 'POS Terminals',
+                            //                   supportingText:
+                            //                       'View your records in an easy to understand \n and interpret charts, So you visualize your \n businesses position anytime.',
+                            //                 )));
+                            //   },
+                            //   child: QuickLinkButton(
+                            //     iconColor: Color(0xffE3655B),
+                            //     buttonTitle: 'POS Terminals',
+                            //     quickLinkIcon: Icons.phone_android_rounded,
+                            //   ),
+                            // ),
                             TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ComingSoonMain(
-                                                imagePath:
-                                                    'lib/assets/images/pos-machine.png',
-                                                header: 'POS Terminals',
-                                                supportingText:
-                                                    'View your records in an easy to understand \n and interpret charts, So you visualize your \n businesses position anytime.',
-                                              )));
-                                },
-                                child: QuickLinkButton(
-                                  iconColor: Color(0xffE3655B),
-                                  buttonTitle: 'POS Terminals',
-                                  quickLinkIcon: Icons.phone_android_rounded,
-                                )),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PosTerminalsMain()),
+                                );
+                              },
+                              child: QuickLinkButton(
+                                iconColor: Color(0xffE3655B),
+                                buttonTitle: 'POS Terminals',
+                                quickLinkIcon: Icons.phone_android_rounded,
+                              ),
+                            ),
 
                             // apply for new POS Terminal
                           ],
