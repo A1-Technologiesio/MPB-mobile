@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class WelcomeScreenBody extends StatelessWidget {
   const WelcomeScreenBody({Key? key}) : super(key: key);
@@ -15,13 +16,20 @@ class WelcomeScreenBody extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            Container(
-              height: mediaHeight * 0.49,
-              // decoration: BoxDecoration(
-              //   color: Color(0xff000000),
-              // ),
-              child: Image.asset(
-                'lib/assets/images/undraw_setup_analytics_re_foim 1.png',
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: mediaHeight * 0.05,
+              ),
+              child: SizedBox(
+                height: mediaHeight * 0.39,
+                // child: Image.asset(
+                //   'lib/assets/images/undraw_setup_analytics_re_foim 1.png',
+                // ),
+                child: Lottie.asset(
+                  'lib/assets/lottiefiles/115876-calculator.json',
+                  // height: mediaHeight * 0.5,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             Column(
