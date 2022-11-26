@@ -4,6 +4,7 @@ import 'package:myposbook/screens/dashboard_screens/dashboard_main/components/bo
 import 'package:myposbook/screens/dashboard_screens/other_screens/cashouts_records/cashouts_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/deposit_records/deposits_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/settings/settings_main.dart';
+import 'package:myposbook/screens/dashboard_screens/other_screens/transfer_records/main.dart';
 import 'package:myposbook/screens/welcome_screen/welcome_screen_main.dart';
 
 class DashboardMainScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
       DashboardMainBody(),
       CashoutRecordsMainScreen(),
       DepositRecordsMainScreen(),
+      TransferRecordMainScreen(),
       SettingsMain(),
     ];
 
@@ -55,6 +57,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
           navBarItem(Icons.home, 'Home'),
           navBarItem(Icons.save, "Cashouts"),
           navBarItem(Icons.download_rounded, "Deposits"),
+          navBarItem(Icons.send, 'Transfers'),
           navBarItem(Icons.settings, "Settings"),
         ],
       ),
