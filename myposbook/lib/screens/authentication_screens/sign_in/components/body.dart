@@ -71,6 +71,9 @@ class _SignInBodyState extends State<SignInBody> {
                       fillColor: formBgColor,
                       filled: true,
                       border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.person_outline_rounded,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -90,6 +93,9 @@ class _SignInBodyState extends State<SignInBody> {
                         hintText: 'Password',
                         fillColor: formBgColor,
                         filled: true,
+                        prefixIcon: Icon(
+                          Icons.lock_outline_rounded,
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _passwordVisible
