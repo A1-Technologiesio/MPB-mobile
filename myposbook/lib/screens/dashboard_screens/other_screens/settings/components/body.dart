@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myposbook/constants.dart';
+import 'package:myposbook/screens/branch_account/branch_accounts_list/branch_acct_list_main.dart';
+import 'package:myposbook/screens/branch_account/branch_accounts_list/components/body.dart';
 import 'package:myposbook/screens/coming_soon/coming_soon_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/about_mpb/about_mpb_main.dart';
 import 'package:myposbook/screens/dashboard_screens/other_screens/settings/related_screens/change_password/change_password_main.dart';
@@ -129,12 +131,13 @@ class _SettingsBodyState extends State<SettingsBody> {
                 () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ComingSoonMain(
-                          header: 'Branch Accounts',
-                          supportingText:
-                              'Save time by getting your records done for you \n Get the records from your branches in One place \n Just issue out the Login info and they do it for you.',
-                          imagePath: 'lib/assets/images/save-time.png',
-                        ),
+                        // builder: (context) => ComingSoonMain(
+                        //   header: 'Branch Accounts',
+                        //   supportingText:
+                        //       'Save time by getting your records done for you \n Get the records from your branches in One place \n Just issue out the Login info and they do it for you.',
+                        //   imagePath: 'lib/assets/images/save-time.png',
+                        // ),
+                        builder: (context) => BranchAccountListMain(),
                       ),
                     )),
             settingsButton('lib/assets/images/settings/subscriptions.png',
