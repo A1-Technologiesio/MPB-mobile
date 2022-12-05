@@ -77,6 +77,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       fillColor: formBgColor,
                       filled: true,
                       border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.person_outline_rounded,
+                      ),
                     ),
                     validator: (value) =>
                         validateForm(value, 'Enter your Username'),
@@ -93,6 +96,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       fillColor: formBgColor,
                       filled: true,
                       border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.mail_outline_rounded,
+                      ),
                     ),
                     validator: (value) => validateEmail(value),
                   ),
@@ -107,6 +113,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       fillColor: formBgColor,
                       filled: true,
                       border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.person_outline_rounded,
+                      ),
                     ),
                     validator: (value) =>
                         validateForm(value, 'Enter First Name'),
@@ -122,6 +131,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       fillColor: formBgColor,
                       filled: true,
                       border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.person_outline_rounded,
+                      ),
                     ),
                     validator: (value) =>
                         validateForm(value, 'Enter Last Name'),
@@ -137,6 +149,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       hintText: 'Phone Number',
                       fillColor: formBgColor,
                       filled: true,
+                      prefixIcon: Icon(
+                        Icons.phone_outlined,
+                      ),
                     ),
                   ),
                   spaceBetweenFormFIelds,
@@ -150,6 +165,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                       hintText: 'Password',
                       fillColor: formBgColor,
                       filled: true,
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _passwordVisibility
@@ -176,6 +194,9 @@ class _CreateAccountBodyState extends State<CreateAccountBody> {
                         hintText: 'Confirm Password',
                         fillColor: formBgColor,
                         filled: true,
+                        prefixIcon: Icon(
+                          Icons.lock_outline,
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _confirmPasswordVisibility
